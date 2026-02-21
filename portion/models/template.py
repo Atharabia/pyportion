@@ -6,9 +6,25 @@ from pydantic import BaseModel
 
 
 class OperationTypes(Enum):
+    ADD_IMPORT = "add_import"
+    ADD_TO_LIST = "add_to_list"
     ASK = "ask"
     COPY = "copy"
     REPLACE = "replace"
+    SET_VAR = "set_var"
+
+
+class TemplateAddImportStep(BaseModel):
+    type: OperationTypes
+    path: list[str]
+    import_statement: str
+
+
+class TemplateAddToListStep(BaseModel):
+    type: OperationTypes
+    path: list[str]
+    list_name: str
+    value: str | int | float | bool
 
 
 class TemplateAskStep(BaseModel):
@@ -35,9 +51,21 @@ class TemplateReplaceStep(BaseModel):
     replacements: list[TemplateReplacement]
 
 
-TemplatePortionStepsType = Union[TemplateAskStep,
-                                 TemplateCopyStep,
-                                 TemplateReplaceStep]
+class TemplateSetVar(BaseModel):
+    type: OperationTypes
+    key: str
+    value: str
+    mode: str | None = None
+
+
+TemplatePortionStepsType = Union[
+    TemplateAddImportStep,
+    TemplateAddToListStep,
+    TemplateAskStep,
+    TemplateCopyStep,
+    TemplateReplaceStep,
+    TemplateSetVar,
+]
 
 
 class TemplatePortion(BaseModel):

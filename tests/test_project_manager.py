@@ -79,6 +79,69 @@ def test_update_configuration(tmp_path: PosixPath) -> None:
     assert updated_config.templates == [template]
 
 
+def test_add_import_creates_file_when_not_exists(tmp_path: PosixPath) -> None:
+    py_file = os.path.join(tmp_path, "new_module.py")
+    pm.add_import([str(tmp_path), "new_module.py"], "import os")
+    with open(py_file) as f:
+        content = f.read()
+    assert content == "import os\n"
+
+
+def test_add_import_creates_file_when_empty(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "empty.py"
+    py_file.write_text("")
+    pm.add_import([str(tmp_path), "empty.py"], "import sys")
+    assert py_file.read_text() == "import sys\n"
+
+
+def test_add_import_skips_when_already_present(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "existing.py"
+    py_file.write_text("import os\nx = 1\n")
+    pm.add_import([str(tmp_path), "existing.py"], "import os")
+    assert py_file.read_text() == "import os\nx = 1\n"
+
+
+def test_add_import_inserts_at_top(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "module.py"
+    py_file.write_text("x = 1\n")
+    pm.add_import([str(tmp_path), "module.py"], "import os")
+    content = py_file.read_text()
+    assert content.index("import os") < content.index("x = 1")
+
+
+def test_add_to_list_appends_value(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "config.py"
+    py_file.write_text('APPS = ["django"]\n')
+    pm.add_to_list([str(tmp_path), "config.py"], "APPS", "myapp")
+    content = py_file.read_text()
+    assert '"myapp"' in content
+
+
+def test_add_to_list_skips_when_value_present(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "config.py"
+    py_file.write_text('APPS = ["myapp"]\n')
+    pm.add_to_list([str(tmp_path), "config.py"], "APPS", "myapp")
+    content = py_file.read_text()
+    assert content.count('"myapp"') == 1
+
+
+def test_add_to_list_appends_non_string_value(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "config.py"
+    py_file.write_text('APPS = ["django"]\n')
+    pm.add_to_list([str(tmp_path), "config.py"], "APPS", 42)
+    content = py_file.read_text()
+    assert "42" in content
+
+
+def test_add_to_list_creates_list_when_missing(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "config.py"
+    py_file.write_text("x = 1\n")
+    pm.add_to_list([str(tmp_path), "config.py"], "APPS", "myapp")
+    content = py_file.read_text()
+    assert "APPS" in content
+    assert '"myapp"' in content
+
+
 def test_get_project_info() -> None:
     config = PortionConfig(
         name="project",

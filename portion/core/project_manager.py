@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from redbaron import RedBaron
 from rich.console import Group
 from rich.console import Text
 from rich.panel import Panel
@@ -73,6 +74,55 @@ class ProjectManager:
 
         with open(path, "w") as f:
             yaml.dump(config.model_dump(), f)
+
+    def add_import(self, path: list[str], import_statement: str) -> None:
+        file_path = os.path.join(*path)
+        if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+            with open(file_path, "w") as f:
+                f.write(import_statement + "\n")
+            return
+
+        with open(file_path, "r") as f:
+            source_code = f.read()
+
+        red = RedBaron(source_code)
+        if import_statement in source_code:
+            return
+
+        import_node = RedBaron(import_statement + "\n")[0]
+        first_node = red.node_list[0]
+        first_node.insert_before(import_node)
+
+        with open(file_path, "w") as f:
+            f.write(red.dumps())
+
+    def add_to_list(self,
+                    path: list[str],
+                    list_name: str,
+                    value: str | int | float | bool) -> None:
+        file_path = os.path.join(*path)
+
+        with open(file_path, "r") as f:
+            red = RedBaron(f.read())
+
+        assign = red.find("assignment",
+                          target=lambda x: x.dumps() == list_name)
+        if not assign:
+            red = RedBaron(red.dumps() + f"\n{list_name} = []\n")
+            assign = red.find("assignment",
+                              target=lambda x: x.dumps() == list_name)
+
+        list_node = assign.value
+        if any(el.dumps().strip("\"'") == str(value) for el in list_node):
+            return
+
+        if isinstance(value, str):
+            list_node.append(f'"{value}"')
+        else:
+            list_node.append(str(value))
+
+        with open(file_path, "w") as f:
+            f.write(red.dumps())
 
     def get_project_info(self,
                          config: PortionConfig,

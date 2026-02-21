@@ -78,7 +78,8 @@ def test_template_command_list(mock_user_data_dir: PosixPath,
     assert template_name2 in output
 
 
-def test_template_command_list_no_templates(app: Portion) -> None:
+def test_template_command_list_no_templates(mock_user_data_dir: PosixPath,
+                                            app: Portion) -> None:
     runner = CliRunner()
     result = runner.invoke(app.cli, ["template", "list"])
     assert result.exit_code == 0
@@ -96,7 +97,8 @@ def test_template_command_info(mock_user_data_dir: PosixPath,
     assert template_name in result.stdout
 
 
-def test_template_command_info_template_not_exist(app: Portion) -> None:
+def test_template_command_info_not_template(mock_user_data_dir: PosixPath,
+                                            app: Portion) -> None:
     runner = CliRunner()
     template_name = "test-template"
     result = runner.invoke(app.cli, ["template", "info", template_name])
