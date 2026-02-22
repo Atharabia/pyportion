@@ -35,7 +35,6 @@ from portion.handler.my_command import MyCommandHandler
 
 def load_handlers(cli: typer.Typer) -> None:
     ...
-    MyCommandHandler().register(cli)
 ```
 
 **4. Add a test** in `tests/commands/test_my_command.py`.
