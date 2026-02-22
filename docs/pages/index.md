@@ -1,10 +1,10 @@
 # Welcome to PyPortion Docs
 
-PyPortion is a lightweight and developer-friendly Python CLI tool that **helps you accelerate project development**, **keep your codebase consistent**, and **eliminate repetitive work**.
+PyPortion is a lightweight and developer-friendly Python CLI tool that **helps you <span style="color: #22c55e">accelerate</span> project development**, **keep your codebase <span style="color: #22c55e">consistent</span>**, and **<span style="color: #22c55e">eliminate repetitive</span> work**.
 
 ## How does PyPortion work?
 
-PyPortion works as a command-line interface (CLI) that helps you create, manage, and standardize Python projects using predefined and customizable templates.
+PyPortion works as a command-line interface (CLI) that helps you <span style="color: #22c55e">create</span>, <span style="color: #22c55e">manage</span>, and <span style="color: #22c55e">standardize</span> Python projects using predefined and customizable templates.
 
 At a high level, PyPortion follows a simple workflow:
 
@@ -39,6 +39,6 @@ Common setup tasks, such as creating folders, configuration files, and base modu
 
 ## Resources
 
-- [Get Started](user-guide/2-get-started.md)
+- [User Guide](user-guide/1-introduction.md)
 - [Report Issues](https://github.com/atharabia/pyportion/issues)
 - [Community Discussions](https://github.com/atharabia/pyportion/discussions)

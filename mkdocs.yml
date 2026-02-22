@@ -51,5 +51,20 @@ nav:
     - Home: pages/index.md
     - User Guide:
         - Introduction: pages/user-guide/1-introduction.md
-        - Get Started: pages/user-guide/2-get-started.md
-    - Contributing: pages/contributing.md
+        - Installation: pages/user-guide/2-installation.md
+        - Template Management: pages/user-guide/3-templates-management.md
+        - Project Creation: pages/user-guide/4-project-creation.md
+        - Existing Project: pages/user-guide/5-existing-project.md
+        - Cloning a Project: pages/user-guide/6-syncing-templates.md
+        - Template Creation: pages/user-guide/7-template-creation.md
+        - Steps Reference: pages/user-guide/8-steps-reference.md
+        - Variables: pages/user-guide/9-variable-substitution.md
+        - Publishing a Template: pages/user-guide/10-publishing-a-template.md
+    - Official Templates: pages/official-templates.md
+    - Contributing:
+        - Overview: pages/contributing/index.md
+        - Architecture: pages/contributing/architecture.md
+        - Core Modules: pages/contributing/core-modules.md
+        - Step Actions: pages/contributing/step-actions.md
+        - Extending: pages/contributing/extending.md
+        - Testing: pages/contributing/testing.md

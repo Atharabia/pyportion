@@ -11,8 +11,8 @@ PyPortion is a command-line interface (CLI) tool designed to streamline Python p
 This guide covers the following topics:
 
 - **Installation** - How to install PyPortion on your system
+- **Template Management** - How to download, list, view and remove templates
 - **Project Creation** - How to create new projects using templates
-- **Template Management** - How to download, list, and use templates
 - **Customization** - How to create and extend templates to match your requirements
 
 ## Prerequisites
@@ -24,4 +24,4 @@ Before getting started, ensure you have the following:
 
 ## Next Steps
 
-Proceed to the [Get Started](2-get-started.md) section to install PyPortion and create your first project.
+Proceed to the [Get Started](2-installation.md) section to install PyPortion and create your first project.
