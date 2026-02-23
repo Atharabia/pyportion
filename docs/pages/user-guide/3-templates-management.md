@@ -75,4 +75,4 @@ Delete a template from your local system:
 ## Next Steps
 
 - [Project Creation](4-project-creation.md) — Create a new project from a downloaded template
-- [Template Creation](5-template-creation.md) — Build and publish your own custom templates
+- [Template Creation](7-template-creation.md) — Build and publish your own custom templates

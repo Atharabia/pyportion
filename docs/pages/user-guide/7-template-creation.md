@@ -71,6 +71,14 @@ portions:
             to_path: ["cli", "commands", "command.py"]
 ```
 
+To run a portion inside a project that uses this template:
+
+<div class="termynal" data-termynal>
+    <span data-ty>portion build command</span>
+</div>
+
+PyPortion reads the portion definition from `.pyportion.yml`, executes each step in sequence, and applies the resulting files and changes directly into the project directory.
+
 Steps run in order. You can chain as many steps as needed — see the [Steps Reference](8-steps-reference.md) for the full list.
 
 ## The `base` Directory

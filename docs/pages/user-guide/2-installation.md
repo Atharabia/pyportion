@@ -22,4 +22,4 @@ To view all available commands and options, use the `--help` flag:
 
 - [Template Management](3-templates-management.md) — Explore the available templates to find one that fits your project requirements
 - [Project Creation](4-project-creation.md) — Learn how to create a new project from a template
-- [Template Creation](5-template-creation.md) — Learn how to create custom templates to standardize your team's workflow
+- [Template Creation](7-template-creation.md) — Learn how to create custom templates to standardize your team's workflow
