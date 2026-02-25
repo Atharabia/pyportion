@@ -1,7 +1,7 @@
 from typing import Generic
 from typing import TypeVar
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import ProjectTemplate
 
 TStep = TypeVar("TStep")
@@ -12,7 +12,7 @@ class ActionBase(Generic[TStep]):
                  step: TStep,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Logger) -> None:
+                 logger: Terminal) -> None:
         self.step = step
         self.project_template = project_template
         self.memory = memory

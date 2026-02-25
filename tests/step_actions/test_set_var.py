@@ -1,4 +1,4 @@
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateSetVar
@@ -17,7 +17,7 @@ def test_set_var_action_prepare_no_mode():
         project_template=ProjectTemplate(
             name="Sample Template", link="", tag=""),
         memory=memory,
-        logger=Logger()
+        logger=Terminal()
     )
     action.prepare()
     assert memory["result"] == "hello world"
@@ -35,7 +35,7 @@ def test_set_var_action_prepare_with_mode():
         project_template=ProjectTemplate(name="Sample Template",
                                          link="", tag=""),
         memory=memory,
-        logger=Logger()
+        logger=Terminal()
     )
     action.prepare()
     assert memory["result"] == "HELLO WORLD"

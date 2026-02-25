@@ -1,6 +1,6 @@
 from portion.base import ActionBase
-from portion.core import Logger
 from portion.core import ProjectManager
+from portion.core import Terminal
 from portion.models import ProjectTemplate
 from portion.models import TemplateReplaceStep
 from portion.utils import Resolver
@@ -12,7 +12,7 @@ class ReplaceAction(ActionBase[TemplateReplaceStep]):
                  step: TemplateReplaceStep,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Logger) -> None:
+                 logger: Terminal) -> None:
         super().__init__(step, project_template, memory, logger)
         self.project_manager = ProjectManager()
 

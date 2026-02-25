@@ -1,5 +1,5 @@
 from portion.base import ActionBase
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import ProjectTemplate
 from portion.models import TemplateSetVar
 from portion.utils import Resolver
@@ -11,7 +11,7 @@ class SetVarAction(ActionBase[TemplateSetVar]):
                  step: TemplateSetVar,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Logger) -> None:
+                 logger: Terminal) -> None:
         super().__init__(step, project_template, memory, logger)
 
     def prepare(self) -> None:

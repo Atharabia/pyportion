@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateAddToListStep
@@ -17,7 +17,7 @@ add_to_list_action = AddToListAction(
     memory={"project_dir": "myproject",
             "list_var": "INSTALLED_APPS",
             "item_val": "myapp"},
-    logger=Logger()
+    logger=Terminal()
 )
 
 

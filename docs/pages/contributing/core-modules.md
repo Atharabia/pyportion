@@ -4,24 +4,26 @@ Core modules live in `portion/core/` and are all singletons — call the class t
 
 ---
 
-## `Logger` — `portion/core/logger.py`
+## `Terminal` — `portion/core/terminal.py`
 
-Wraps [Rich](https://rich.readthedocs.io) for all terminal output. Respects the global `verbose` flag from `cli_state`.
+Wraps [Rich](https://rich.readthedocs.io) and [questionary](https://questionary.readthedocs.io) for all terminal output and user interaction. Respects the global `verbose` flag from `cli_state`.
 
 ```python
-from portion.core.logger import Logger
+from portion.core.terminal import Terminal
 
-logger = Logger()
-logger.info("Template downloaded.")
+terminal = Terminal()
+terminal.info("Template downloaded.")
 ```
 
 | <div style="min-width:160px">Method</div> | Purpose |
 |---|---|
-| `info(msg)` | Print an informational message |
-| `warn(msg)` | Print a warning |
-| `error(msg)` | Print an error and exit |
-| `prompt(msg)` | Ask the user for input and return the answer |
-| `pulse(msg)` | Show a spinner while a task runs |
+| `info(msg, **kwargs)` | Print an informational message |
+| `warn(msg, **kwargs)` | Print a warning |
+| `error(msg, **kwargs)` | Print an error message |
+| `prompt(msg, **kwargs)` | Ask the user for a yes/no confirmation and return the answer |
+| `pulse(msg, **kwargs)` | Print a verbose log message (only shown when `verbose` is enabled) |
+| `choose(msg, choices, **kwargs)` | Show an interactive selection menu and return the chosen item |
+| `print(message)` | Print a Rich renderable directly to the console |
 
 ---
 

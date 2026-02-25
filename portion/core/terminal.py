@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import questionary
 from rich.console import Console
 from rich.jupyter import JupyterMixin
 from rich.prompt import Confirm
@@ -8,10 +9,10 @@ from rich.theme import Theme
 from portion.models import cli_state
 
 
-class Logger:
-    def __new__(cls) -> Logger:
+class Terminal:
+    def __new__(cls) -> Terminal:
         if not hasattr(cls, "_instance"):
-            cls._instance = super(cls, Logger).__new__(cls)
+            cls._instance = super(cls, Terminal).__new__(cls)
         return cls._instance
 
     def __init__(self) -> None:
@@ -45,6 +46,21 @@ class Logger:
         if Confirm.ask(message):
             return True
         return False
+
+    def choose(self, message: str, choices: list[str], **kwargs: str) -> str:
+        select_style = questionary.Style([
+            ("question", "bold cyan"),
+            ("pointer", "cyan"),
+            ("highlighted", "cyan"),
+            ("answer", "bold cyan"),
+        ])
+
+        message = message.format(**kwargs)
+        choice = questionary.select(message,
+                                    choices=choices,
+                                    qmark="",
+                                    style=select_style).ask()
+        return choice
 
     def print(self, message: JupyterMixin) -> None:
         self.console.print(message)

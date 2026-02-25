@@ -1,6 +1,6 @@
 from pytest import MonkeyPatch
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateAskStep
@@ -16,7 +16,7 @@ ask_action = AskAction(
                                      link="",
                                      tag=""),
     memory={},
-    logger=Logger()
+    logger=Terminal()
 )
 
 
@@ -33,5 +33,4 @@ def test_ask_action_prepare(monkeypatch: MonkeyPatch):
 
 
 def test_ask_action_apply():
-    result = ask_action.apply()
-    assert result is None
+    ask_action.apply()

@@ -1,6 +1,6 @@
 from portion.base import ActionBase
-from portion.core import Logger
 from portion.core import TemplateManager
+from portion.core import Terminal
 from portion.models import ProjectTemplate
 from portion.models import TemplateCopyStep
 from portion.utils import Resolver
@@ -11,7 +11,7 @@ class CopyAction(ActionBase[TemplateCopyStep]):
                  step: TemplateCopyStep,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Logger) -> None:
+                 logger: Terminal) -> None:
         super().__init__(step, project_template, memory, logger)
         self.template_manager = TemplateManager()
 

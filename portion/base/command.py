@@ -1,6 +1,6 @@
-from portion.core import Logger
+from portion.core import Terminal
 
 
 class CommandBase:
     def __init__(self, **kwargs: str) -> None:
-        self.logger = Logger()
+        self.logger = Terminal()

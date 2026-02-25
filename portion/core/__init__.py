@@ -1,9 +1,9 @@
-from .logger import Logger
 from .project_manager import ProjectManager
 from .template_manager import TemplateManager
+from .terminal import Terminal
 
 __all__ = [
-    "Logger",
     "ProjectManager",
     "TemplateManager",
+    "Terminal",
 ]

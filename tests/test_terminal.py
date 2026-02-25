@@ -1,10 +1,10 @@
 import pytest
 from rich.text import Text
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import cli_state
 
-logger = Logger()
+logger = Terminal()
 
 
 def test_logger_pulse(capsys: pytest.CaptureFixture) -> None:
@@ -49,9 +49,23 @@ def test_logger_print(capsys: pytest.CaptureFixture) -> None:
     assert "This is a printed message." in captured.out
 
 
+def test_logger_choose(monkeypatch: pytest.MonkeyPatch) -> None:
+    choices = ["option_a", "option_b", "option_c"]
+
+    class MockSelect:
+        def ask(self):
+            return "option_b"
+
+    monkeypatch.setattr("questionary.select",
+                        lambda *args, **kwargs: MockSelect())
+
+    result = logger.choose("Pick one:", choices)
+    assert result == "option_b"
+
+
 def test_logger_pulse_non_verbose(capsys: pytest.CaptureFixture) -> None:
     cli_state.verbose = False
-    logger = Logger()
+    logger = Terminal()
     logger.pulse("This is a pulse message.")
     captured = capsys.readouterr()
     assert "This is a pulse message." not in captured.out

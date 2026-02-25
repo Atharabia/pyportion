@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateCopyStep
@@ -16,7 +16,7 @@ copy_action = CopyAction(
                                      link="",
                                      tag=""),
     memory={"destination": "dest_folder"},
-    logger=Logger()
+    logger=Terminal()
 )
 
 

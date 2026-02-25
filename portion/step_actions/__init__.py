@@ -1,5 +1,5 @@
 from portion.base import ActionBase
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import ProjectTemplate
 from portion.models import TemplatePortionStepsType
 
@@ -23,5 +23,5 @@ all_actions = {
 def create_action(step: TemplatePortionStepsType,
                   project_template: ProjectTemplate,
                   memory: dict[str, str],
-                  logger: Logger) -> ActionBase:
+                  logger: Terminal) -> ActionBase:
     return all_actions[step.type.value](step, project_template, memory, logger)

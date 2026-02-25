@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateAddImportStep
@@ -14,7 +14,7 @@ add_import_action = AddImportAction(
     ),
     project_template=ProjectTemplate(name="Sample Template", link="", tag=""),
     memory={"project_dir": "myproject", "module": "os"},
-    logger=Logger()
+    logger=Terminal()
 )
 
 

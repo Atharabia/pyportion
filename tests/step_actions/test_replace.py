@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from portion.core import Logger
+from portion.core import Terminal
 from portion.models import OperationTypes
 from portion.models import ProjectTemplate
 from portion.models import TemplateReplacement
@@ -22,7 +22,7 @@ replace_action = ReplaceAction(
                                      link="",
                                      tag=""),
     memory={"new_value": "hello world"},
-    logger=Logger()
+    logger=Terminal()
 )
 
 
