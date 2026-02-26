@@ -36,7 +36,8 @@ class BuildCommand(CommandBase):
         portions = [(t, portion)
                     for t in pconfig.templates
                     for portion in
-                    self.template_manager.read_configuration(t.name).portions]
+                    self.template_manager.read_configuration(
+                        t.name, t.version).portions]
 
         template_portion = self._find_portion(portions, portion_name)
 

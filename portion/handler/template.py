@@ -23,9 +23,15 @@ class TemplateHandler(HandlerBase):
                 typer.Argument(
                     help="Link to the template to download"
                 )
-            ] = None
+            ] = None,
+            version: Annotated[
+                str | None,
+                typer.Argument(
+                    help="Template version. e.g v1.0.0"
+                )
+            ] = None,
         ) -> None:
-            template_command.download(link)
+            template_command.download(link, version)
 
         @self.command.command(
             name="remove",

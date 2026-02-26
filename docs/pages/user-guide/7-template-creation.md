@@ -29,14 +29,11 @@ The `.pyportion.yml` file has two sections: **metadata** and **portions**.
 
 ```yaml
 name: my-template
+source: https://github.com/your-org/my-template
 version: 1.0.0
 description: A short description of what this template does.
 author: Your Name
 type: cli
-
-source:
-    link: https://github.com/your-org/my-template
-    tag: main
 
 portions:
     - name: command
@@ -53,8 +50,7 @@ portions:
 | `description` | Short description shown in `portion template info` |
 | `author` | Author or team name |
 | `type` | Category label (e.g. `cli`, `api`, `library`) |
-| `source.link` | Git URL of the template repository |
-| `source.tag` | Branch or tag to track |
+| `source` | Git URL of the template repository |
 
 ## Portions
 

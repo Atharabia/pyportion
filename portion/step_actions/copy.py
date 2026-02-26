@@ -21,5 +21,6 @@ class CopyAction(ActionBase[TemplateCopyStep]):
 
     def apply(self) -> None:
         self.template_manager.copy_portion(self.project_template.name,
+                                           self.project_template.version,
                                            self.step.from_path,
                                            self.step.to_path)

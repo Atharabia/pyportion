@@ -10,7 +10,7 @@ From inside the cloned project directory, run:
     <span data-ty>portion template download</span>
 </div>
 
-Running `portion template download` without any arguments reads your project's `.pyportion.yml` and downloads every template listed there to your local machine.
+Running `portion template download` without any arguments reads your project's `.pyportion.yml` and downloads every template listed there to your local machine. Template versions that are already installed are skipped automatically.
 
 ## Build Portions
 

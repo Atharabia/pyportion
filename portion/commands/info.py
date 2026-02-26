@@ -14,8 +14,11 @@ class InfoCommand(CommandBase):
     def info(self) -> None:
         path = Path.cwd()
         config = self.project_manager.read_configuration(path)
-        templates = {t.name: self.template_manager.read_configuration(t.name)
-                     for t in config.templates}
+        templates = {
+            t.name: self.template_manager.read_configuration(t.name,
+                                                             t.version)
+            for t in config.templates
+        }
 
         panel = self.project_manager.get_project_info(config, templates)
         self.terminal.print(panel)

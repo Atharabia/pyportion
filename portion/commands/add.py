@@ -21,9 +21,6 @@ class AddCommand(CommandBase):
             self.terminal.error(Message.Add.TEMPLATE_EXIST)
             return None
 
-        self.terminal.pulse(Message.Add.VALIDATE_TEMPALTE)
-        tconfig = self.template_manager.read_configuration(template_name)
-
         self.terminal.pulse(Message.Add.CHECKING_USED_TEMPLATES)
         path = Path.cwd()
         pconfig = self.project_manager.read_configuration(path)
@@ -32,11 +29,23 @@ class AddCommand(CommandBase):
                 self.terminal.error(Message.Add.TEMPLATE_ALREADY_ADDED)
                 return None
 
+        versions = self.template_manager.get_template_versions(template_name)
+        if len(versions) == 1:
+            version = versions[0]
+        else:
+            version = self.terminal.choose(Message.Add.CHOOSE_VERSION,
+                                           versions,
+                                           template_name=template_name)
+
+        self.terminal.pulse(Message.Add.VALIDATE_TEMPALTE)
+        tconfig = self.template_manager.read_configuration(template_name,
+                                                           version)
+
         self.terminal.pulse(Message.Add.ADDING_TEMPLATE,
                             template_name=template_name)
         pconfig.templates.append(ProjectTemplate(name=tconfig.name,
                                                  source=tconfig.source,
-                                                 version=tconfig.version))
+                                                 version=version))
 
         self.project_manager.update_configuration(path, pconfig)
         self.terminal.info(Message.Add.TEMPLATE_ADDED,

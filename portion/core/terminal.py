@@ -18,7 +18,7 @@ class Terminal:
     def __init__(self) -> None:
 
         theme = Theme({
-            "info": "white",
+            "info": "#47ba47",
             "warn": "yellow",
             "error": "red",
         })
@@ -49,16 +49,18 @@ class Terminal:
 
     def choose(self, message: str, choices: list[str], **kwargs: str) -> str:
         select_style = questionary.Style([
-            ("question", "bold cyan"),
-            ("pointer", "cyan"),
-            ("highlighted", "cyan"),
-            ("answer", "bold cyan"),
+            ("question", "bold #47ba47"),
+            ("qmark", "#47ba47"),
+            ("pointer", "#47ba47"),
+            ("highlighted", "#47ba47"),
+            ("answer", "bold #47ba47"),
         ])
 
         message = message.format(**kwargs)
         choice = questionary.select(message,
                                     choices=choices,
-                                    qmark="",
+                                    qmark="●",
+                                    pointer=">",
                                     style=select_style).ask()
         return choice
 

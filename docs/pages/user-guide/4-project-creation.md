@@ -19,6 +19,8 @@ Once you have a template downloaded, scaffold a new project with the `new` comma
 
 This creates a `my-awesome-app/` directory pre-populated with the structure defined in `cli-template`.
 
+If you have multiple versions of the template installed, PyPortion will prompt you to choose which version to use.
+
 ## Adding More Templates
 
 A project can use more than one template. To attach an additional template to a project you've already created:
@@ -33,7 +35,7 @@ A project can use more than one template. To attach an additional template to a 
     <span data-ty>portion add cli-template</span>
 </div>
 
-This registers the template in your project's `.pyportion.yml`, making its portions available for use.
+This registers the template in your project's `.pyportion.yml`, making its portions available for use. If multiple versions are installed, you will be prompted to select which version to attach.
 
 ### Remove a Template
 

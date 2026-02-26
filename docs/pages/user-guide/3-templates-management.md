@@ -27,14 +27,22 @@ View all official templates [here](../official-templates.md)
 Download a template from a remote repository:
 
 <div class="termynal" data-termynal>
-    <span data-ty>portion template download &lt;template-url&gt;</span>
+    <span data-ty>portion template download &lt;template-url&gt; [version]</span>
 </div>
 
-Replace `<template-url>` with the URL of the template repository:
+Replace `<template-url>` with the URL of the template repository. The optional `[version]` argument pins a specific branch or tag — omitting it downloads the latest version as declared in the template's `.pyportion.yml`:
 
 <div class="termynal" data-termynal>
     <span data-ty>portion template download https://github.com/Atharabia/cli-template</span>
 </div>
+
+To download a specific version:
+
+<div class="termynal" data-termynal>
+    <span data-ty>portion template download https://github.com/Atharabia/cli-template v1.2.0</span>
+</div>
+
+Multiple versions of the same template can be installed side by side.
 
 ### Link Alias
 
@@ -58,9 +66,11 @@ Inspect a template's metadata and available portions:
     <span data-ty>portion template info cli-template</span>
 </div>
 
+If multiple versions of the template are installed, you will be prompted to choose which one to inspect.
+
 ### Remove a Template
 
-Delete a template from your local system:
+Delete a specific version of a template from your local system:
 
 <div class="termynal" data-termynal>
     <span data-ty>portion template remove &lt;template-name&gt;</span>
@@ -71,6 +81,8 @@ Delete a template from your local system:
 <div class="termynal" data-termynal>
     <span data-ty>portion template remove cli-template</span>
 </div>
+
+If multiple versions are installed, you will be prompted to select which version to remove. The template directory is deleted automatically once no versions remain.
 
 ## Next Steps
 

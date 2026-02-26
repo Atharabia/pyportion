@@ -1,4 +1,7 @@
+import os
+import shutil
 from pathlib import PosixPath
+from unittest.mock import patch
 
 import pytest
 from typer.testing import CliRunner
@@ -34,9 +37,15 @@ def test_template_download_template_exist(mock_user_data_dir: PosixPath,
     runner = CliRunner()
     create_template(mock_user_data_dir, "cli-template")
     template_link = "https://github.com/Atharabia/cli-template"
-    result = runner.invoke(app.cli, ["template", "download", template_link])
-    assert result.exit_code == 0
-    assert Message.Template.TEMPLATE_EXIST == strip_ansi(result.stdout)
+
+    func = "portion.core.template_manager.TemplateManager.download_template"
+    with patch(func) as mock_download:
+        mock_download.return_value = None
+        result = runner.invoke(
+            app.cli, [
+                "template", "download", template_link])
+        assert result.exit_code == 0
+        assert Message.Template.TEMPLATE_EXIST == strip_ansi(result.stdout)
 
 
 def test_template_command_remove_invalid(mock_user_data_dir: PosixPath,
@@ -55,7 +64,7 @@ def test_template_command_remove(mock_user_data_dir: PosixPath,
     result = runner.invoke(app.cli, ["template", "remove", template_name])
     assert result.exit_code == 0
     output = strip_ansi(result.stdout)
-    assert f"The template ({template_name}) has been deleted" in output
+    assert f"{template_name}@v1.0.0 has been deleted" in output
 
     result = runner.invoke(app.cli, ["template", "remove", template_name])
     assert result.exit_code == 0
@@ -111,11 +120,11 @@ def test_template_download_not_template(mock_user_data_dir: PosixPath,
                                         monkeypatch: pytest.MonkeyPatch,
                                         app: Portion) -> None:
 
-    def mock_download(self, link: str) -> bool:
-        template_name = link.split("/")[-1]
-        template_path = mock_user_data_dir / "pyportion" / template_name
-        template_path.mkdir(parents=True, exist_ok=True)
-        return True
+    def mock_download(self, link: str, version=None) -> str | None:
+        t_name = link.split("/")[-1]
+        version_path = mock_user_data_dir / "pyportion" / t_name / "1.0.0"
+        version_path.mkdir(parents=True, exist_ok=True)
+        return "v1.0.0"
 
     monkeypatch.setattr(
         "portion.core.template_manager.TemplateManager.download_template",
@@ -138,14 +147,16 @@ def test_template_download_success(mock_user_data_dir: PosixPath,
     runner = CliRunner()
     template_link = "https://github.com/Atharabia/valid-template"
     template_name = "valid-template"
+    version = "v1.0.0"
 
-    def mock_download(self, link: str) -> bool:
-        template_name = link.split("/")[-1]
-        template_path = mock_user_data_dir / "pyportion" / template_name
-        template_path.mkdir(parents=True, exist_ok=True)
-        config_file = template_path / ".pyportion.yml"
-        config_file.write_text("name: Valid Template\nversion: 1.0.0\n")
-        return True
+    def mock_download(self, link: str, ver=None) -> str | None:
+        name = link.split("/")[-1]
+        version_path = mock_user_data_dir / \
+            "pyportion" / name / version.lstrip("v")
+        version_path.mkdir(parents=True, exist_ok=True)
+        config_file = version_path / ".pyportion.yml"
+        config_file.write_text(f"name: {name}\nversion: {version}\n")
+        return version
 
     monkeypatch.setattr(
         "portion.core.template_manager.TemplateManager.download_template",
@@ -156,4 +167,98 @@ def test_template_download_success(mock_user_data_dir: PosixPath,
     assert result.exit_code == 0
 
     output = strip_ansi(result.stdout)
-    assert f"{template_name} has been downloaded successfully" in output
+    assert (f"{template_name}@{version} has been downloaded successfully"
+            in output)
+
+
+def test_template_download_from_config_no_project(app: Portion) -> None:
+    runner = CliRunner()
+    with runner.isolated_filesystem():
+        result = runner.invoke(app.cli, ["template", "download"])
+        assert result.exit_code == 1
+
+
+def test_template_download_from_config_no_templates(app: Portion) -> None:
+    runner = CliRunner()
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+        runner.invoke(app.cli, ["init", project_name])
+
+        result = runner.invoke(app.cli, ["template", "download"])
+        assert result.exit_code == 0
+
+
+def test_template_download_from_config_one_template(
+        mock_user_data_dir: PosixPath, app: Portion) -> None:
+    runner = CliRunner()
+    template_name = "base-template"
+    create_template(mock_user_data_dir, template_name)
+
+    func = "portion.core.template_manager.TemplateManager.download_template"
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+        runner.invoke(app.cli, ["new", template_name, project_name])
+        os.chdir(project_name)
+        shutil.rmtree(mock_user_data_dir / "pyportion" / template_name)
+
+        with patch(func) as mock_download:
+            mock_download.return_value = "v1.0.0"
+
+            result = runner.invoke(app.cli, ["template", "download"])
+            assert result.exit_code == 0
+
+            message = f"{template_name}@v1.0.0 is successfully downloaded"
+            assert message == strip_ansi(result.stdout)
+            assert mock_download.called
+
+
+def test_template_download_from_config_multiple_templates(
+        mock_user_data_dir: PosixPath, app: Portion) -> None:
+    runner = CliRunner()
+    base_template = "base-template"
+    template1 = "template1"
+    template2 = "template2"
+    create_template(mock_user_data_dir, base_template)
+    create_template(mock_user_data_dir, template1)
+    create_template(mock_user_data_dir, template2)
+
+    func = "portion.core.template_manager.TemplateManager.download_template"
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+
+        runner.invoke(app.cli, ["new", base_template, project_name])
+        os.chdir(project_name)
+        runner.invoke(app.cli, ["add", template1])
+        runner.invoke(app.cli, ["add", template2])
+        shutil.rmtree(mock_user_data_dir / "pyportion" / base_template)
+        shutil.rmtree(mock_user_data_dir / "pyportion" / template1)
+        shutil.rmtree(mock_user_data_dir / "pyportion" / template2)
+
+        with patch(func) as mock_download:
+            mock_download.return_value = None
+            result = runner.invoke(app.cli, ["template", "download"])
+            assert result.exit_code == 0
+            assert mock_download.call_count == 3
+
+
+def test_template_download_from_config_failure(mock_user_data_dir: PosixPath,
+                                               app: Portion) -> None:
+    runner = CliRunner()
+    template_name = "base-template"
+    create_template(mock_user_data_dir, template_name)
+    func = "portion.core.template_manager.TemplateManager.download_template"
+
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+        runner.invoke(app.cli, ["new", template_name, project_name])
+        os.chdir(project_name)
+        shutil.rmtree(mock_user_data_dir / "pyportion" / template_name)
+
+        with patch(func) as mock_download:
+            mock_download.side_effect = Exception()
+
+            result = runner.invoke(app.cli, ["template", "download"])
+            assert result.exit_code == 0
+
+            message = f"Could not download {template_name}@v1.0.0"
+            assert message == strip_ansi(result.stdout)

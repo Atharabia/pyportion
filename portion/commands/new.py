@@ -22,21 +22,32 @@ class NewCommand(CommandBase):
             self.terminal.error(Message.New.TEMPLATE_NOT_EXIST)
             return None
 
+        versions = self.template_manager.get_template_versions(template_name)
+        if len(versions) == 1:
+            version = versions[0]
+        else:
+            version = self.terminal.choose(Message.New.CHOOSE_VERSION,
+                                           versions,
+                                           template_name=template_name)
+
         self.terminal.pulse(Message.New.READING_TEMPLATE_CONFIG,
                             template_name=template_name)
 
-        tconfig = self.template_manager.read_configuration(template_name)
+        tconfig = self.template_manager.read_configuration(template_name,
+                                                           version)
 
         self.terminal.pulse(Message.New.CREATING_PROJECT,
                             project_name=project_name)
         self.project_manager.create_project(project_name)
-        self.template_manager.copy_template(template_name, project_name)
+        self.template_manager.copy_template(template_name,
+                                            version,
+                                            project_name)
         self.project_manager.initialize_project(project_name, project_name)
 
         pconfig = self.project_manager.read_configuration(project_name)
         pconfig.templates.append(ProjectTemplate(name=tconfig.name,
                                                  source=tconfig.source,
-                                                 version=tconfig.version))
+                                                 version=version))
         self.project_manager.update_configuration(project_name, pconfig)
 
         self.terminal.info(Message.New.CREATED, project_name=project_name)

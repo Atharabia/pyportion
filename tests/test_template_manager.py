@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from pathlib import PosixPath
 
 import pytest
@@ -7,6 +8,9 @@ from rich.panel import Panel
 from portion.core.template_manager import TemplateManager
 from portion.models.template import TemplateConfig
 from portion.models.template import TemplatePortion
+
+VERSION = "v1.0.0"
+VERSION_DIR = VERSION.lstrip("v")
 
 
 def test_create_pyportion_dir(mock_user_data_dir: PosixPath) -> None:
@@ -20,22 +24,33 @@ def test_create_pyportion_dir(mock_user_data_dir: PosixPath) -> None:
 
 def test_download_template(mock_user_data_dir: PosixPath,
                            monkeypatch: pytest.MonkeyPatch) -> None:
-    def mock_repo_clone(link, template_path) -> None:
-        (mock_template_path).mkdir()
+    template_name = "pyportion-template"
+    link = f"https://github.com/test/{template_name}"
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+
+    def mock_repo_clone(_url, path, **_kwargs) -> None:
+        os.makedirs(path, exist_ok=True)
+        config = (f"version: {VERSION}\n"
+                  f"name: {template_name}\n"
+                  "source: https://github.com/\n"
+                  "description: test\n"
+                  "author: test\n"
+                  "type: test\n")
+        (Path(path) / ".pyportion.yml").write_text(config)
 
     tm = TemplateManager()
-    template_name = "pyportion-template"
-    mock_template_path = (mock_user_data_dir / "pyportion" / template_name)
     monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
                         mock_repo_clone)
 
     tm.create_pyportion_dir()
-    assert (mock_template_path).exists() is False
+    assert version_path.exists() is False
     assert tm.is_template_exists(template_name) is False
 
-    tm.download_template("pyportion.com")
+    result = tm.download_template(link)
 
-    assert (mock_template_path).exists() is True
+    assert result == VERSION
+    assert version_path.exists() is True
     assert tm.is_template_exists(template_name) is True
 
 
@@ -43,7 +58,7 @@ def test_download_template_wrong_link() -> None:
     tm = TemplateManager()
     tm.create_pyportion_dir()
     result = tm.download_template("invalid_link")
-    assert result is False
+    assert result is None
 
 
 def test_delete_if_not_template(mock_user_data_dir: PosixPath) -> None:
@@ -51,18 +66,23 @@ def test_delete_if_not_template(mock_user_data_dir: PosixPath) -> None:
     tm.create_pyportion_dir()
     template_name = "pyportion-template"
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name)
-    template_path.mkdir()
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
 
-    assert tm.delete_if_not_template(template_name) is True
+    assert tm.delete_if_not_template(template_name, VERSION) is True
+    assert version_path.exists() is False
+
+    # Parent dir also removed when empty
+    template_path = mock_user_data_dir / "pyportion" / template_name
     assert template_path.exists() is False
 
-    template_path.mkdir()
-    portion_json_path = template_path / ".pyportion.yml"
+    version_path.mkdir(parents=True)
+    portion_json_path = version_path / ".pyportion.yml"
     portion_json_path.touch()
 
-    assert tm.delete_if_not_template(template_name) is False
-    assert template_path.exists() is True
+    assert tm.delete_if_not_template(template_name, VERSION) is False
+    assert version_path.exists() is True
 
 
 def test_delete_template(mock_user_data_dir: PosixPath) -> None:
@@ -70,12 +90,14 @@ def test_delete_template(mock_user_data_dir: PosixPath) -> None:
     tm.create_pyportion_dir()
     template_name = "pyportion-template"
 
-    assert tm.delete_template(template_name) is False
+    assert tm.delete_template(template_name, VERSION) is False
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name)
-    template_path.mkdir()
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
 
-    assert tm.delete_template(template_name) is True
+    assert tm.delete_template(template_name, VERSION) is True
+    assert version_path.exists() is False
 
 
 def test_get_templates(mock_user_data_dir: PosixPath) -> None:
@@ -99,16 +121,15 @@ def test_copy_template(mock_user_data_dir: PosixPath) -> None:
     template_name = "pyportion-template"
     project_name = "pyportion-project"
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name / "base")
-    template_path.mkdir(parents=True)
-
-    pyportion_file_path = (template_path / ".pyportion.yml")
-    pyportion_file_path.touch()
+    base_path = (mock_user_data_dir / "pyportion"
+                 / template_name / VERSION_DIR / "base")
+    base_path.mkdir(parents=True)
+    (base_path / ".pyportion.yml").touch()
 
     project_path = (mock_user_data_dir / project_name)
 
     assert project_path.exists() is False
-    tm.copy_template(template_name, str(project_path))
+    tm.copy_template(template_name, VERSION, str(project_path))
     assert project_path.exists() is True
     assert (project_path / ".pyportion.yml").exists() is True
 
@@ -119,23 +140,21 @@ def test_copy_portion(mock_user_data_dir: PosixPath) -> None:
     template_name = "pyportion-template"
     project_name = "pyportion-project"
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name)
-    template_path.mkdir(parents=True)
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
+    (version_path / "base").mkdir()
 
-    base_path = template_path / "base"
-    base_path.mkdir()
-
-    portion_path = template_path / ".portions"
-    portion_path.mkdir()
-
-    portion_file_path = portion_path / "portion.py"
-    portion_file_path.touch()
+    portion_dir = version_path / ".portions"
+    portion_dir.mkdir()
+    (portion_dir / "portion.py").touch()
 
     dest_path = mock_user_data_dir / project_name
     assert dest_path.exists() is False
     dest_path.mkdir()
 
     tm.copy_portion(template_name,
+                    VERSION,
                     portion_path=["portion.py"],
                     dest_path=list(dest_path.parts) + ["portion.py"])
 
@@ -148,21 +167,21 @@ def test_read_template_config(mock_user_data_dir: PosixPath) -> None:
     tm.create_pyportion_dir()
     template_name = "pyportion-template"
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name)
-    template_path.mkdir(parents=True)
-    portion_file_path = template_path / ".pyportion.yml"
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
 
-    config_str = """
-    name: Test Template
-    source: https://github.com/
-    version: 1.0.0
-    description: A test template
-    author: Test Author
-    type: test
-    """
+    config_str = """\
+name: Test Template
+source: https://github.com/
+version: 1.0.0
+description: A test template
+author: Test Author
+type: test
+"""
 
-    portion_file_path.write_text(config_str)
-    config = tm.read_configuration(template_name)
+    (version_path / ".pyportion.yml").write_text(config_str)
+    config = tm.read_configuration(template_name, VERSION)
 
     assert config is not None
     assert config.name == "Test Template"
@@ -177,33 +196,33 @@ def test_update_configuration(mock_user_data_dir: PosixPath) -> None:
     tm.create_pyportion_dir()
     template_name = "pyportion-template"
 
-    template_path = (mock_user_data_dir / "pyportion" / template_name)
-    template_path.mkdir(parents=True)
-    portion_file_path = template_path / ".pyportion.yml"
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
 
-    config_str = """
-    name: Test Template
-    source: https://github.com/
-    version: 1.0.0
-    description: A test template
-    author: Test Author
-    type: test
-    """
+    config_str = """\
+name: Test Template
+source: https://github.com/
+version: 1.0.0
+description: A test template
+author: Test Author
+type: test
+"""
 
-    portion_file_path.write_text(config_str)
-    config = tm.read_configuration(template_name)
+    (version_path / ".pyportion.yml").write_text(config_str)
+    config = tm.read_configuration(template_name, VERSION)
     assert config is not None
     assert config.author == "Test Author"
 
     config.author = "Updated Author"
-    tm.update_configuration(template_name, config)
-    updated_config = tm.read_configuration(template_name)
+    tm.update_configuration(template_name, VERSION, config)
+    updated_config = tm.read_configuration(template_name, VERSION)
 
     assert updated_config is not None
     assert updated_config.author == "Updated Author"
 
 
-def test_get_template_info(mock_user_data_dir: PosixPath) -> None:
+def test_get_template_info() -> None:
     tm = TemplateManager()
     template_config = TemplateConfig(
         name="Test Template",
