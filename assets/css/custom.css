@@ -1,0 +1,391 @@
+/* Custom PyPortion theme for MkDocs Material */
+@font-face {
+    font-family: 'DejaVu Sans Mono';
+    src: url('../fonts/dejavu-sans-mono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Root color overrides */
+:root {
+    --md-primary-fg-color: #47ba47;
+    --md-accent-fg-color: #47ba47;
+    --md-typeset-color: #eee;
+    --md-typeset-a-color: #47ba47;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-default-bg-color: #000000;
+    --md-default-fg-color: #eee;
+    --md-code-bg-color: #1a1a1a;
+    --md-code-fg-color: #eee;
+    --md-primary-fg-color: #47ba47;
+    --md-accent-fg-color: #47ba47;
+    --md-typeset-a-color: #47ba47;
+}
+
+/* Global font override */
+body,
+input,
+textarea,
+select,
+button {
+    font-family: "DejaVu Sans Mono", monospace, sans-serif !important;
+}
+
+/* Background colors */
+body {
+    background: #000000 !important;
+    color: #eee !important;
+}
+
+.md-header {
+    background: #000000 !important;
+    border-bottom: 2px solid #2a2a2a;
+}
+
+.md-tabs {
+    background: #000000 !important;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.md-main {
+    background: #000000 !important;
+}
+
+.md-content {
+    background: #000000 !important;
+}
+
+.md-sidebar {
+    background: #000000 !important;
+}
+
+/* Navigation styling */
+.md-header__title {
+    font-weight: 600 !important;
+    color: #fff !important;
+}
+
+.md-nav__link {
+    color: #eee !important;
+}
+
+.md-nav__link:hover {
+    color: #47ba47 !important;
+}
+
+.md-nav__link--active {
+    color: #47ba47 !important;
+}
+
+.md-tabs__link {
+    color: #eee !important;
+}
+
+.md-tabs__link:hover {
+    color: #47ba47 !important;
+}
+
+.md-tabs__link--active {
+    color: #47ba47 !important;
+}
+
+/* Typography */
+.md-typeset h1 {
+    color: #fff !important;
+    font-weight: 700 !important;
+}
+
+.md-typeset h2 {
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+.md-typeset h3 {
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    color: #fff !important;
+}
+
+.md-typeset p {
+    color: #eee !important;
+}
+
+.md-typeset a {
+    color: #47ba47 !important;
+    text-decoration: none;
+}
+
+.md-typeset a:hover {
+    color: #59f359 !important;
+    text-decoration: underline;
+}
+
+/* Lists */
+.md-typeset ul,
+.md-typeset ol {
+    color: #eee !important;
+}
+
+.md-typeset li {
+    color: #eee !important;
+}
+
+/* Code blocks */
+.md-typeset code {
+    background: #1a1a1a !important;
+    color: #47ba47 !important;
+    border: 1px solid #2a2a2a;
+}
+
+.md-typeset pre {
+    background: #1a1a1a !important;
+    border: 2px solid #2a2a2a;
+    border-radius: 8px;
+}
+
+.md-typeset pre code {
+    background: transparent !important;
+    color: #eee !important;
+    border: none;
+}
+
+/* Buttons */
+.md-button {
+    background: #47ba47 !important;
+    color: #000 !important;
+    border: 2px solid #47ba47 !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.md-button:hover {
+    background: #59f359 !important;
+    border-color: #59f359 !important;
+    transform: translateY(-2px) !important;
+}
+
+.md-button--primary {
+    background: #47ba47 !important;
+    color: #000 !important;
+}
+
+/* Search */
+.md-search__input {
+    background: #1a1a1a !important;
+    color: #eee !important;
+    border: 2px solid #2a2a2a !important;
+}
+
+.md-search__input::placeholder {
+    color: #888 !important;
+}
+
+.md-search__output {
+    background: #1a1a1a !important;
+    border: 2px solid #2a2a2a !important;
+}
+
+/* Footer */
+.md-footer {
+    background: #000000 !important;
+    border-top: 2px solid #2a2a2a !important;
+}
+
+.md-footer-meta {
+    background: #000000 !important;
+}
+
+.md-footer__link {
+    color: #47ba47 !important;
+}
+
+.md-footer__link:hover {
+    color: #59f359 !important;
+}
+
+/* Table of contents */
+.md-nav__item--active > .md-nav__link {
+    color: #47ba47 !important;
+}
+
+.md-sidebar__scrollwrap {
+    background: #000000 !important;
+}
+
+/* Content area */
+.md-content__inner {
+    padding-bottom: 48px;
+}
+
+/* Admonitions/callouts */
+.md-typeset .admonition,
+.md-typeset details {
+    background: #1a1a1a !important;
+    border: 2px solid #2a2a2a !important;
+    border-left: 4px solid #47ba47 !important;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+    background: #1a1a1a !important;
+    color: #fff !important;
+}
+
+/* Tables */
+.md-typeset table:not([class]) {
+    background: #1a1a1a !important;
+    border: 2px solid #2a2a2a !important;
+}
+
+.md-typeset table:not([class]) th {
+    background: #2a2a2a !important;
+    color: #fff !important;
+    border-bottom: 2px solid #47ba47 !important;
+}
+
+.md-typeset table:not([class]) td {
+    border-bottom: 1px solid #2a2a2a !important;
+    color: #eee !important;
+}
+
+/* Horizontal rules */
+.md-typeset hr {
+    border-bottom: 2px solid #2a2a2a !important;
+}
+
+/* Blockquotes */
+.md-typeset blockquote {
+    border-left: 4px solid #47ba47 !important;
+    background: #1a1a1a !important;
+    color: #bbb !important;
+}
+
+/* Inline code */
+.md-typeset :not(pre) > code {
+    background: #1a1a1a !important;
+    color: #47ba47 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+
+/* Navigation icons */
+.md-nav__icon {
+    color: #47ba47 !important;
+}
+
+/* Source link in header */
+.md-source {
+    color: #eee !important;
+}
+
+.md-source:hover {
+    color: #47ba47 !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #47ba47;
+}
+
+/* Main content max width to match landing page */
+.md-grid {
+    max-width: 1200px !important;
+}
+
+/* Top navigation highlight */
+.md-header__button {
+    color: #eee !important;
+}
+
+.md-header__button:hover {
+    color: #47ba47 !important;
+}
+
+/* Copyright text in footer */
+.md-footer-copyright {
+    color: #666 !important;
+}
+
+.md-footer-copyright__highlight {
+    color: #47ba47 !important;
+}
+
+/* Navigation sections */
+.md-nav__title {
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+/* Feature emoji styling for better visibility */
+.md-typeset p > .twemoji,
+.md-typeset li > .twemoji {
+    vertical-align: middle;
+}
+
+/* Make sure feature lists look good */
+.md-typeset ul li::marker {
+    color: #47ba47 !important;
+}
+
+/* Adjust announcement bar if used */
+.md-banner {
+    background: #1a1a1a !important;
+    border-bottom: 2px solid #2a2a2a !important;
+}
+
+/* Version selector if used */
+.md-version__current {
+    color: #eee !important;
+}
+
+.md-version__list {
+    background: #1a1a1a !important;
+    border: 2px solid #2a2a2a !important;
+}
+
+/* Tags */
+.md-tag {
+    background: #1a1a1a !important;
+    color: #47ba47 !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+/* Keyboard keys */
+.md-typeset kbd {
+    background: #1a1a1a !important;
+    color: #eee !important;
+    border: 1px solid #2a2a2a !important;
+    box-shadow: 0 2px 0 0 #2a2a2a !important;
+}
+
+/* Task lists */
+.md-typeset .task-list-indicator::before {
+    background-color: #1a1a1a !important;
+    border: 2px solid #47ba47 !important;
+}
+
+.md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
+    background-color: #47ba47 !important;
+}
