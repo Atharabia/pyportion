@@ -9,5 +9,5 @@ class VersionCommand(CommandBase):
         super().__init__()
 
     def version(self) -> None:
-        self.logger.info(Message.Version.DISPLAY,
-                         version=version("pyportion"))
+        self.terminal.info(Message.Version.DISPLAY,
+                           version=version("pyportion"))

@@ -109,7 +109,6 @@ class TemplateManager:
         config = template_config.model_dump()
 
         metadata = {k: v for k, v in config.items() if isinstance(v, str)}
-        source = config.get("source", {}) or {}
         portions = config.get("portions", []) or []
 
         def build_table(data) -> Table | None:
@@ -129,7 +128,6 @@ class TemplateManager:
             return table
 
         metadata_table = build_table(metadata)
-        source_table = build_table(source)
 
         portions_table = None
         if portions:
@@ -146,7 +144,7 @@ class TemplateManager:
 
         group_items = [
             table for table
-            in (metadata_table, source_table, portions_table)
+            in (metadata_table, portions_table)
             if table
         ]
 

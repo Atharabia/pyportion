@@ -3,8 +3,8 @@ from pydantic import BaseModel
 
 class ProjectTemplate(BaseModel):
     name: str
-    link: str
-    tag: str
+    source: str
+    version: str
 
 
 class PortionConfig(BaseModel):

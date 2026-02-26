@@ -44,7 +44,8 @@ def test_install_command_with_one_template(mock_user_data_dir: PosixPath,
             result = runner.invoke(app.cli, ["template", "download"])
             assert result.exit_code == 0
 
-            message = f"{template_name} is successfully downloaded"
+            print(result.stdout)
+            message = f"{template_name}@v1.0.0 is successfully downloaded"
             assert message == strip_ansi(result.stdout)
             assert mock_download.called
 
@@ -93,5 +94,5 @@ def test_install_command_download_failure(mock_user_data_dir: PosixPath,
             result = runner.invoke(app.cli, ["template", "download"])
             assert result.exit_code == 0
 
-            message = f"Could not donwload {template_name}"
+            message = f"Could not donwload {template_name}@v1.0.0"
             assert message == strip_ansi(result.stdout)

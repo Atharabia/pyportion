@@ -13,10 +13,10 @@ class InitCommand(CommandBase):
     def init(self, project_name: str) -> None:
         path = Path.cwd()
 
-        self.logger.pulse(Message.Init.CHECKING_INIT, path=str(path))
+        self.terminal.pulse(Message.Init.CHECKING_INIT, path=str(path))
         if self.project_manager.is_project_initalized(path):
-            self.logger.error(Message.Init.PROJECT_EXIST)
+            self.terminal.error(Message.Init.PROJECT_EXIST)
             return None
 
         self.project_manager.initialize_project(path, project_name)
-        self.logger.info(Message.Init.INITIALIZED, project_name=project_name)
+        self.terminal.info(Message.Init.INITIALIZED, project_name=project_name)

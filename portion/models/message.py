@@ -20,7 +20,6 @@ class Message:
 
         TEMPLATE_EXIST = "The given template is not exist"
         TEMPLATE_ALREADY_ADDED = "The template is already added"
-        TEMPLATE_INCOMPLETE = "The template is incompelete"
 
         TEMPLATE_ADDED = ("[bold cyan]({template_name})[/] has "
                           "been added successfully")
@@ -38,10 +37,12 @@ class Message:
     class Install:
         READING_CONFIGURATION = "Reading project configuration"
         DOWNLOADING_TEMPALTE = ("Downloading template: {template_name} "
-                                "from {template_link}")
+                                "from {template_link}@{template_version}")
 
-        DOWNLOADED = "{template_name} is successfully downloaded"
-        COULD_NOT_DOWNLOAD = "Could not donwload {template_name}"
+        DOWNLOADED = ("{template_name}@{template_version} "
+                      "is successfully downloaded")
+        COULD_NOT_DOWNLOAD = ("Could not donwload "
+                              "{template_name}@{tempalte_version}")
 
     @dataclass
     class New:
@@ -49,7 +50,6 @@ class Message:
         TEMPLATE_CHECK = "Checking given template"
         PROJECT_EXIST = "The project is already exist"
         TEMPLATE_NOT_EXIST = "The template is not exist"
-        TEMPLATE_INCOMPLETE = "The template is incompelete"
 
         READING_TEMPLATE_CONFIG = ("Reading template configuration: "
                                    "{template_name}")

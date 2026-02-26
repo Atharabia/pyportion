@@ -13,8 +13,8 @@ ask_action = AskAction(
         variable="name"
     ),
     project_template=ProjectTemplate(name="Sample Template",
-                                     link="",
-                                     tag=""),
+                                     source="",
+                                     version=""),
     memory={},
     logger=Terminal()
 )

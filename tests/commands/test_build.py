@@ -13,8 +13,8 @@ from tests.utils import strip_ansi
 
 def test_find_portion_success() -> None:
     command = BuildCommand()
-    template1 = ProjectTemplate(name="template1", link="", tag="")
-    template2 = ProjectTemplate(name="template2", link="", tag="")
+    template1 = ProjectTemplate(name="template1", source="", version="")
+    template2 = ProjectTemplate(name="template2", source="", version="")
     portion1 = TemplatePortion(name="auth", steps=[])
     portion2 = TemplatePortion(name="database", steps=[])
     portion3 = TemplatePortion(name="api", steps=[])
@@ -34,7 +34,7 @@ def test_find_portion_success() -> None:
 
 def test_find_portion_not_found() -> None:
     command = BuildCommand()
-    template1 = ProjectTemplate(name="template1", link="", tag="")
+    template1 = ProjectTemplate(name="template1", source="", version="")
     portion1 = TemplatePortion(name="auth", steps=[])
     portions = [(template1, portion1)]
 

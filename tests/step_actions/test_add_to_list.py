@@ -9,16 +9,20 @@ from portion.step_actions.add_to_list import AddToListAction
 add_to_list_action = AddToListAction(
     step=TemplateAddToListStep(
         type=OperationTypes.ADD_TO_LIST,
-        path=["$project_dir", "config.py"],
+        path=[
+            "$project_dir",
+            "config.py"],
         list_name="$list_var",
-        value="$item_val"
-    ),
-    project_template=ProjectTemplate(name="Sample Template", link="", tag=""),
-    memory={"project_dir": "myproject",
-            "list_var": "INSTALLED_APPS",
-            "item_val": "myapp"},
-    logger=Terminal()
-)
+        value="$item_val"),
+    project_template=ProjectTemplate(
+        name="Sample Template",
+        source="",
+        version=""),
+    memory={
+        "project_dir": "myproject",
+        "list_var": "INSTALLED_APPS",
+                    "item_val": "myapp"},
+    logger=Terminal())
 
 
 def test_add_to_list_action_prepare():

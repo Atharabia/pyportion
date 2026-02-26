@@ -14,7 +14,7 @@ def test_create_ask_action():
         variable="user_name"
     )
     project_template = ProjectTemplate(name="Test Template",
-                                       link="", tag="")
+                                       source="", version="")
     memory: dict[str, str] = {}
     logger = Terminal()
     action = create_action(step, project_template, memory, logger)

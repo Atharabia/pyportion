@@ -14,7 +14,7 @@ class RemoveCommand(CommandBase):
 
     def remove(self, template_name: str) -> None:
         path = Path.cwd()
-        self.logger.pulse(Message.Remove.CHECKING_TEMPLATES)
+        self.terminal.pulse(Message.Remove.CHECKING_TEMPLATES)
         config = self.project_manager.read_configuration(path)
 
         for i, template in enumerate(config.templates):
@@ -22,9 +22,9 @@ class RemoveCommand(CommandBase):
                 config.templates.pop(i)
                 break
         else:
-            self.logger.error(Message.Remove.TEMPLATE_NOT_FOUND)
+            self.terminal.error(Message.Remove.TEMPLATE_NOT_FOUND)
             return None
 
         self.project_manager.update_configuration(path, config)
-        self.logger.info(Message.Remove.TEMPLATE_REMOVED,
-                         template_name=template_name)
+        self.terminal.info(Message.Remove.TEMPLATE_REMOVED,
+                           template_name=template_name)

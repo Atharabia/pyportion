@@ -19,8 +19,8 @@ replace_action = ReplaceAction(
         ]
     ),
     project_template=ProjectTemplate(name="Sample Template",
-                                     link="",
-                                     tag=""),
+                                     source="",
+                                     version=""),
     memory={"new_value": "hello world"},
     logger=Terminal()
 )

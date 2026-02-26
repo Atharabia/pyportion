@@ -29,10 +29,10 @@ class BuildCommand(CommandBase):
     def build(self, portion_name: str) -> None:
         path = Path.cwd()
 
-        self.logger.pulse(Message.Build.READING_CONFIG)
+        self.terminal.pulse(Message.Build.READING_CONFIG)
         pconfig = self.project_manager.read_configuration(path)
 
-        self.logger.pulse(Message.Build.COLLECTING_PORTIONS)
+        self.terminal.pulse(Message.Build.COLLECTING_PORTIONS)
         portions = [(t, portion)
                     for t in pconfig.templates
                     for portion in
@@ -41,24 +41,24 @@ class BuildCommand(CommandBase):
         template_portion = self._find_portion(portions, portion_name)
 
         if not template_portion:
-            self.logger.error(Message.Build.NO_PORTION,
-                              portion_name=portion_name)
+            self.terminal.error(Message.Build.NO_PORTION,
+                                portion_name=portion_name)
             return None
 
         template, portion = template_portion
 
-        actions = [create_action(step, template, self.memory, self.logger)
+        actions = [create_action(step, template, self.memory, self.terminal)
                    for step in portion.steps]
 
         for action in actions:
             action.prepare()
 
         if not cli_state.auto_confirm:
-            if not self.logger.prompt(Message.Build.CONFIRMATION):
-                self.logger.info(Message.Build.ABORT)
+            if not self.terminal.prompt(Message.Build.CONFIRMATION):
+                self.terminal.info(Message.Build.ABORT)
                 return None
 
         for action in actions:
-            self.logger.pulse(Message.Build.RUNNING_STEP,
-                              step_type=action.step.type.value)
+            self.terminal.pulse(Message.Build.RUNNING_STEP,
+                                step_type=action.step.type.value)
             action.apply()

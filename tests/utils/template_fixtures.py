@@ -15,13 +15,11 @@ def create_template(mock_user_data_dir: PosixPath,
 
     config_str = f"""\
       name: {template_name}
-      version: 1.0.0
+      source: https://github.com/test/template
+      version: v1.0.0
       description: A test template
       author: Test Author
       type: test
-      source:
-        link: https://github.com/test/template
-        tag: v1.0.0
       """
     config_file = template_path / ".pyportion.yml"
     config_file.write_text(config_str)
@@ -40,7 +38,7 @@ def create_template_without_source(mock_user_data_dir: PosixPath,
 
     config_str = """\
     name: Test Template No Source
-    version: 1.0.0
+    version: v1.0.0
     description: A test template without source
     author: Test Author
     type: test
@@ -63,13 +61,11 @@ def create_template_with_portions(mock_user_data_dir: PosixPath,
 
     config_str = f"""\
     name: {template_name}
-    version: 1.0.0
+    source: https://github.com/test/template
+    version: v1.0.0
     description: A test template with multiple portions
     author: Test Author
     type: test
-    source:
-      link: https://github.com/test/template
-      tag: v1.0.0
     portions:
       - name: feature1
         steps:

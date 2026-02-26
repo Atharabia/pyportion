@@ -15,7 +15,7 @@ def test_set_var_action_prepare_no_mode():
             mode=None
         ),
         project_template=ProjectTemplate(
-            name="Sample Template", link="", tag=""),
+            name="Sample Template", source="", version=""),
         memory=memory,
         logger=Terminal()
     )
@@ -33,7 +33,7 @@ def test_set_var_action_prepare_with_mode():
             mode="uppercase"
         ),
         project_template=ProjectTemplate(name="Sample Template",
-                                         link="", tag=""),
+                                         source="", version=""),
         memory=memory,
         logger=Terminal()
     )

@@ -69,8 +69,8 @@ def test_update_configuration(tmp_path: PosixPath) -> None:
 
     config = pm.read_configuration(path)
     template = ProjectTemplate(name="temp",
-                               link="https://github.com/pyportion/temp.git",
-                               tag="v1.0.0")
+                               source="https://github.com/Atharabia/temp.git",
+                               version="v1.0.0")
     config.templates.append(template)
 
     pm.update_configuration(path, config)
@@ -147,14 +147,14 @@ def test_get_project_info() -> None:
         name="project",
         templates=[
             ProjectTemplate(name="temp1",
-                            link="https://github.com/pyportion/temp1.git",
-                            tag="v1.0.0"),
+                            source="https://github.com/Atharabia/temp1.git",
+                            version="v1.0.0"),
             ProjectTemplate(name="temp2",
-                            link="https://github.com/pyportion/temp2.git",
-                            tag="v1.0.0"),
+                            source="https://github.com/Atharabia/temp2.git",
+                            version="v1.0.0"),
             ProjectTemplate(name="temp3",
-                            link="https://github.com/pyportion/temp3.git",
-                            tag="v1.0.0"),
+                            source="https://github.com/Atharabia/temp3.git",
+                            version="v1.0.0"),
         ]
     )
 
@@ -162,18 +162,18 @@ def test_get_project_info() -> None:
                 for i in range(3)]
 
     templates_dict = {"temp1": TemplateConfig(name="temp1",
+                                              source="",
                                               version="1.0.0",
                                               description="Test Template",
                                               author="Author Name",
                                               type="cli",
-                                              source=None,
                                               portions=portions),
                       "temp2": TemplateConfig(name="temp2",
+                                              source="",
                                               version="1.0.0",
                                               description="Another Template",
                                               author="Author Name",
                                               type="web",
-                                              source=None,
                                               portions=[])
                       }
 

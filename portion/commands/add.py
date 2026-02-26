@@ -14,33 +14,30 @@ class AddCommand(CommandBase):
         self.template_manager = TemplateManager()
 
     def add(self, template_name: str) -> None:
-        self.logger.pulse(Message.Add.CHECKING_TEMPLATE,
-                          template_name=template_name)
+        self.terminal.pulse(Message.Add.CHECKING_TEMPLATE,
+                            template_name=template_name)
 
         if not self.template_manager.is_template_exists(template_name):
-            self.logger.error(Message.Add.TEMPLATE_EXIST)
+            self.terminal.error(Message.Add.TEMPLATE_EXIST)
             return None
 
-        self.logger.pulse(Message.Add.VALIDATE_TEMPALTE)
+        self.terminal.pulse(Message.Add.VALIDATE_TEMPALTE)
         tconfig = self.template_manager.read_configuration(template_name)
-        if not tconfig.source:
-            self.logger.error(Message.Add.TEMPLATE_INCOMPLETE)
-            return None
 
-        self.logger.pulse(Message.Add.CHECKING_USED_TEMPLATES)
+        self.terminal.pulse(Message.Add.CHECKING_USED_TEMPLATES)
         path = Path.cwd()
         pconfig = self.project_manager.read_configuration(path)
         for template in pconfig.templates:
             if template.name == template_name:
-                self.logger.error(Message.Add.TEMPLATE_ALREADY_ADDED)
+                self.terminal.error(Message.Add.TEMPLATE_ALREADY_ADDED)
                 return None
 
-        self.logger.pulse(Message.Add.ADDING_TEMPLATE,
-                          template_name=template_name)
+        self.terminal.pulse(Message.Add.ADDING_TEMPLATE,
+                            template_name=template_name)
         pconfig.templates.append(ProjectTemplate(name=tconfig.name,
-                                                 link=tconfig.source.link,
-                                                 tag=tconfig.source.tag))
+                                                 source=tconfig.source,
+                                                 version=tconfig.version))
 
         self.project_manager.update_configuration(path, pconfig)
-        self.logger.info(Message.Add.TEMPLATE_ADDED,
-                         template_name=template_name)
+        self.terminal.info(Message.Add.TEMPLATE_ADDED,
+                           template_name=template_name)

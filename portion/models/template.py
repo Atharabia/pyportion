@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Optional
 from typing import Union
 
 from pydantic import BaseModel
@@ -73,17 +72,12 @@ class TemplatePortion(BaseModel):
     steps: list[TemplatePortionStepsType]
 
 
-class TemplateSource(BaseModel):
-    link: str
-    tag: str
-
-
 class TemplateConfig(BaseModel):
     name: str
+    source: str
     version: str
     description: str
     author: str
     type: str
 
-    source: Optional[TemplateSource] = None
     portions: list[TemplatePortion] = []

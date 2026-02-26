@@ -49,8 +49,7 @@ def test_add_command_template_without_source(mock_user_data_dir: PosixPath,
         os.chdir(project_name)
 
         result = runner.invoke(app.cli, ["add", incomplete_template])
-        assert result.exit_code == 0
-        assert Message.Add.TEMPLATE_INCOMPLETE == strip_ansi(result.stdout)
+        assert result.exit_code == 1
 
 
 def test_add_command_success(mock_user_data_dir: PosixPath,

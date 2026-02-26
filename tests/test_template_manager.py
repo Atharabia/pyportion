@@ -154,6 +154,7 @@ def test_read_template_config(mock_user_data_dir: PosixPath) -> None:
 
     config_str = """
     name: Test Template
+    source: https://github.com/
     version: 1.0.0
     description: A test template
     author: Test Author
@@ -182,6 +183,7 @@ def test_update_configuration(mock_user_data_dir: PosixPath) -> None:
 
     config_str = """
     name: Test Template
+    source: https://github.com/
     version: 1.0.0
     description: A test template
     author: Test Author
@@ -205,6 +207,7 @@ def test_get_template_info(mock_user_data_dir: PosixPath) -> None:
     tm = TemplateManager()
     template_config = TemplateConfig(
         name="Test Template",
+        source="https://github.com/",
         version="1.0.0",
         description="A test template",
         author="Test Author",

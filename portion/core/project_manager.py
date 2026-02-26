@@ -145,8 +145,8 @@ class ProjectManager:
 
             info = Table(show_header=False, box=None, padding=(0, 1))
             info.add_row("Description:", tpl_cfg.description or "")
-            info.add_row("Tag:", project_template.tag)
-            info.add_row("Link:", project_template.link)
+            info.add_row("Link:", project_template.source)
+            info.add_row("Tag:", project_template.version)
 
             portions = Table(show_header=False, box=None, padding=(0, 1))
             portions.add_row(Text("Portions:", style="cyan bold"))

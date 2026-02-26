@@ -14,7 +14,6 @@ from .template import TemplatePortionStepsType
 from .template import TemplateReplacement
 from .template import TemplateReplaceStep
 from .template import TemplateSetVar
-from .template import TemplateSource
 
 __all__ = [
     "Config",

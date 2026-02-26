@@ -9,13 +9,18 @@ from portion.step_actions.add_import import AddImportAction
 add_import_action = AddImportAction(
     step=TemplateAddImportStep(
         type=OperationTypes.ADD_IMPORT,
-        path=["$project_dir", "main.py"],
-        import_statement="import $module"
-    ),
-    project_template=ProjectTemplate(name="Sample Template", link="", tag=""),
-    memory={"project_dir": "myproject", "module": "os"},
-    logger=Terminal()
-)
+        path=[
+            "$project_dir",
+            "main.py"],
+        import_statement="import $module"),
+    project_template=ProjectTemplate(
+        name="Sample Template",
+        source="",
+        version=""),
+    memory={
+        "project_dir": "myproject",
+        "module": "os"},
+    logger=Terminal())
 
 
 def test_add_import_action_prepare():

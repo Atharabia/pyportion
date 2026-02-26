@@ -13,8 +13,8 @@ copy_action = CopyAction(
         to_path=["$destination", "file.txt"]
     ),
     project_template=ProjectTemplate(name="Sample Template",
-                                     link="",
-                                     tag=""),
+                                     source="",
+                                     version=""),
     memory={"destination": "dest_folder"},
     logger=Terminal()
 )

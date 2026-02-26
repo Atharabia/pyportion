@@ -43,5 +43,4 @@ def test_new_command_template_without_source(mock_user_data_dir: PosixPath,
         project_name = "test-project"
 
         result = runner.invoke(app.cli, ["new", template_name, project_name])
-        assert result.exit_code == 0
-        assert Message.New.TEMPLATE_INCOMPLETE in result.stdout
+        assert result.exit_code == 1

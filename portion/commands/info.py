@@ -18,4 +18,4 @@ class InfoCommand(CommandBase):
                      for t in config.templates}
 
         panel = self.project_manager.get_project_info(config, templates)
-        self.logger.print(panel)
+        self.terminal.print(panel)
