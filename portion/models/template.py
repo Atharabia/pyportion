@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 class OperationTypes(Enum):
     ADD_IMPORT = "add_import"
+    ADD_PORTION = "add_portion"
     ADD_TO_LIST = "add_to_list"
     ASK = "ask"
     COPY = "copy"
@@ -17,6 +18,12 @@ class TemplateAddImportStep(BaseModel):
     type: OperationTypes
     path: list[str]
     import_statement: str
+
+
+class TemplateAddPortionStep(BaseModel):
+    type: OperationTypes
+    path: list[str]
+    value: str
 
 
 class TemplateAddToListStep(BaseModel):

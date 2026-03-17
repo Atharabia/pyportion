@@ -142,6 +142,15 @@ def test_add_to_list_creates_list_when_missing(tmp_path: PosixPath) -> None:
     assert '"myapp"' in content
 
 
+def test_add_portion(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "module.py"
+    py_file.write_text("x = 1\n")
+    pm.add_portion([str(tmp_path), "module.py"], "y = 2")
+    content = py_file.read_text()
+    assert "x = 1" in content
+    assert "y = 2" in content
+
+
 def test_get_project_info() -> None:
     config = PortionConfig(
         name="project",

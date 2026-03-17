@@ -1,11 +1,13 @@
 import os
 from pathlib import PosixPath
 
+import pytest
 from typer.testing import CliRunner
 
 from portion.models import Message
 from portion.portion import Portion
 from tests.utils import create_template
+from tests.utils import create_template_with_two_versions
 from tests.utils import create_template_without_source
 from tests.utils import strip_ansi
 
@@ -119,3 +121,25 @@ def test_add_command_multiple_templates(mock_user_data_dir: PosixPath,
         assert base_template in info_result.stdout
         assert template1 in info_result.stdout
         assert template2 in info_result.stdout
+
+
+def test_add_command_choose_version(mock_user_data_dir: PosixPath,
+                                    app: Portion,
+                                    monkeypatch: pytest.MonkeyPatch) -> None:
+    runner = CliRunner()
+    base_template = "base-template"
+    multi_template = "multi-version-template"
+    create_template(mock_user_data_dir, base_template)
+    create_template_with_two_versions(mock_user_data_dir, multi_template)
+
+    monkeypatch.setattr("portion.core.terminal.Terminal.choose",
+                        lambda self, *args, **kwargs: "v1.0.0")
+
+    with runner.isolated_filesystem():
+        runner.invoke(app.cli, ["new", base_template, "test-project"])
+        os.chdir("test-project")
+
+        result = runner.invoke(app.cli, ["add", multi_template])
+        assert result.exit_code == 0
+        message = f"({multi_template}) has been added successfully"
+        assert message == strip_ansi(result.stdout)

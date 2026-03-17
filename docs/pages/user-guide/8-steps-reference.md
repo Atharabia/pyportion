@@ -97,6 +97,23 @@ Append an import statement to a Python file.
 
 ---
 
+## `add_portion` <span class="md-tag">Added in v1.3.0</span>
+
+Run another portion from within a portion step. Useful for composing reusable portions together.
+
+```yaml
+- type: add_portion
+  path: ["cli", "commands"]
+  value: $portion_name
+```
+
+| Field | Description |
+|---|---|
+| `path*` | Path segments to the target directory or file |
+| `value*` | Name of the portion to apply (supports variable substitution) |
+
+---
+
 ## `add_to_list`
 
 Append a value to a Python list variable in a file.

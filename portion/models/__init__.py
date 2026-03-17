@@ -5,6 +5,7 @@ from .project import ProjectTemplate
 from .state import cli_state
 from .template import OperationTypes
 from .template import TemplateAddImportStep
+from .template import TemplateAddPortionStep
 from .template import TemplateAddToListStep
 from .template import TemplateAskStep
 from .template import TemplateConfig
@@ -23,6 +24,7 @@ __all__ = [
     "cli_state",
     "OperationTypes",
     "TemplateAddImportStep",
+    "TemplateAddPortionStep",
     "TemplateAddToListStep",
     "TemplateAskStep",
     "TemplateConfig",

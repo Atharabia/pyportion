@@ -10,6 +10,7 @@ from portion.commands import TemplateCommand
 from portion.models import Message
 from portion.portion import Portion
 from tests.utils import create_template
+from tests.utils import create_template_with_two_versions
 from tests.utils import strip_ansi
 
 
@@ -262,3 +263,66 @@ def test_template_download_from_config_failure(mock_user_data_dir: PosixPath,
 
             message = f"Could not download {template_name}@v1.0.0"
             assert message == strip_ansi(result.stdout)
+
+
+def test_template_download_failed(mock_user_data_dir: PosixPath,
+                                  app: Portion) -> None:
+    runner = CliRunner()
+    template_link = "https://github.com/Atharabia/nonexistent-template"
+    func = "portion.core.template_manager.TemplateManager.download_template"
+    with patch(func) as mock_download:
+        mock_download.return_value = None
+        result = runner.invoke(
+            app.cli, ["template", "download", template_link])
+        assert result.exit_code == 0
+        assert Message.Template.DOWNLOAD_FAILED in result.stdout
+
+
+def test_template_download_from_config_version_already_exists(
+        mock_user_data_dir: PosixPath, app: Portion) -> None:
+    runner = CliRunner()
+    template_name = "base-template"
+    create_template(mock_user_data_dir, template_name)
+    func = "portion.core.template_manager.TemplateManager.download_template"
+
+    with runner.isolated_filesystem():
+        runner.invoke(app.cli, ["new", template_name, "test-project"])
+        os.chdir("test-project")
+
+        with patch(func) as mock_download:
+            result = runner.invoke(app.cli, ["template", "download"])
+            assert result.exit_code == 0
+            assert not mock_download.called
+
+
+def test_template_remove_choose_version(
+        mock_user_data_dir: PosixPath,
+        app: Portion,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+
+    runner = CliRunner()
+    template_name = "multi-version-template"
+    create_template_with_two_versions(mock_user_data_dir, template_name)
+
+    monkeypatch.setattr("portion.core.terminal.Terminal.choose",
+                        lambda self, *args, **kwargs: "v1.0.0")
+
+    result = runner.invoke(app.cli, ["template", "remove", template_name])
+    assert result.exit_code == 0
+    output = strip_ansi(result.stdout)
+    assert f"{template_name}@v1.0.0 has been deleted" in output
+
+
+def test_template_info_choose_version(mock_user_data_dir: PosixPath,
+                                      app: Portion,
+                                      monkeypatch: pytest.MonkeyPatch) -> None:
+    runner = CliRunner()
+    template_name = "multi-version-template"
+    create_template_with_two_versions(mock_user_data_dir, template_name)
+
+    monkeypatch.setattr("portion.core.terminal.Terminal.choose",
+                        lambda self, *args, **kwargs: "v1.0.0")
+
+    result = runner.invoke(app.cli, ["template", "info", template_name])
+    assert result.exit_code == 0
+    assert template_name in result.stdout

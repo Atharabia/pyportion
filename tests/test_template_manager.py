@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from pathlib import PosixPath
+from unittest.mock import MagicMock
 
 import pytest
 from rich.panel import Panel
@@ -220,6 +221,131 @@ type: test
 
     assert updated_config is not None
     assert updated_config.author == "Updated Author"
+
+
+def test_get_template_versions_path_not_exist(
+        mock_user_data_dir: PosixPath) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    assert tm.get_template_versions("nonexistent-template") == []
+
+
+def test_download_template_with_version_already_exists(
+        mock_user_data_dir: PosixPath) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    version_path = (mock_user_data_dir / "pyportion" /
+                    template_name / VERSION_DIR)
+
+    version_path.mkdir(parents=True)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}",
+                                  VERSION)
+    assert result is None
+
+
+def test_download_template_with_version_success(
+        mock_user_data_dir: PosixPath,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    def mock_clone(_url, path, **_kwargs) -> None:
+        os.makedirs(path, exist_ok=True)
+
+    monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
+                        mock_clone)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}",
+                                  VERSION)
+    assert result == VERSION
+
+
+def test_download_template_with_version_clone_fails(
+        mock_user_data_dir: PosixPath,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    def mock_clone(*args, **kwargs):
+        raise Exception("Clone failed")
+
+    monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
+                        mock_clone)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}",
+                                  VERSION)
+    assert result is None
+
+
+def test_download_template_no_portion_file(
+        mock_user_data_dir: PosixPath,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    def mock_clone(_url, path, **_kwargs) -> None:
+        os.makedirs(path, exist_ok=True)
+
+    monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
+                        mock_clone)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}")
+    assert result is None
+
+
+def test_download_template_no_version_in_data(
+        mock_user_data_dir: PosixPath,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    def mock_clone(_url, path, **_kwargs) -> None:
+        os.makedirs(path, exist_ok=True)
+        (Path(path) / ".pyportion.yml").write_text("name: test\n")
+
+    monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
+                        mock_clone)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}")
+    assert result is None
+
+
+def test_download_template_version_already_exists_in_data(
+        mock_user_data_dir: PosixPath,
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+    template_name = "my-template"
+
+    version_path = (mock_user_data_dir / "pyportion" /
+                    template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
+
+    def mock_clone(_url, path, **_kwargs) -> None:
+        os.makedirs(path, exist_ok=True)
+        (Path(path) / ".pyportion.yml").write_text(
+            f"name: {template_name}\nversion: {VERSION}\n")
+
+    monkeypatch.setattr("portion.core.template_manager.Repo.clone_from",
+                        mock_clone)
+
+    result = tm.download_template(f"https://github.com/test/{template_name}")
+    assert result is None
+
+
+def test_get_template_info_no_string_metadata() -> None:
+    tm = TemplateManager()
+    mock_config = MagicMock()
+    mock_config.model_dump.return_value = {"portions": [], "count": 42}
+    panel = tm.get_template_info(mock_config)
+    assert isinstance(panel, Panel)
 
 
 def test_get_template_info() -> None:
