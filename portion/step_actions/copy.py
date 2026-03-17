@@ -2,13 +2,13 @@ from portion.base import ActionBase
 from portion.core import TemplateManager
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateCopyStep
+from portion.models import TemplateCopyAction
 from portion.utils import Resolver
 
 
-class CopyAction(ActionBase[TemplateCopyStep]):
+class CopyAction(ActionBase[TemplateCopyAction]):
     def __init__(self,
-                 step: TemplateCopyStep,
+                 step: TemplateCopyAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

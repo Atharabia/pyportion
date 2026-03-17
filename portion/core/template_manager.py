@@ -26,8 +26,7 @@ class TemplateManager:
                                             Config.portion_dir)
 
     def create_pyportion_dir(self) -> None:
-        if not os.path.exists(self._pyportion_path):
-            os.mkdir(self._pyportion_path)
+        os.makedirs(self._pyportion_path, exist_ok=True)
 
     def _version_path(self, template_name: str, version: str) -> str:
         version = version.lstrip("v")

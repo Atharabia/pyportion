@@ -11,8 +11,6 @@ class BuildHandler(HandlerBase):
         super().__init__(app)
 
     def register_commands(self) -> None:
-        build_command = BuildCommand()
-
         @self.command.command(
             help="Build a new portion in the project",
             no_args_is_help=True
@@ -23,4 +21,4 @@ class BuildHandler(HandlerBase):
                 typer.Argument(help="Name of the portion to build")
             ]
         ) -> None:
-            build_command.build(portion_name)
+            BuildCommand().build(portion_name)

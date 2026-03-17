@@ -14,13 +14,13 @@ from tests.utils import create_template_with_two_versions
 from tests.utils import strip_ansi
 
 
-def test_check_link() -> None:
+def test_check_link(mock_user_data_dir: PosixPath) -> None:
     tm = TemplateCommand()
     assert tm._check_link("https://github.com/") is True
     assert tm._check_link("http://github.com/") is True
 
 
-def test_resolve_link() -> None:
+def test_resolve_link(mock_user_data_dir: PosixPath) -> None:
     tm = TemplateCommand()
     assert tm._resolve_link("gh/Atharabia") == "https://github.com/Atharabia"
     assert tm._resolve_link("gl/Atharabia") == "https://gitlab.com/Atharabia"

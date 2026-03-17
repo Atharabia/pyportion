@@ -1,14 +1,14 @@
 from pathlib import Path
 
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateCopyStep
+from portion.models import TemplateCopyAction
 from portion.step_actions import CopyAction
 
 copy_action = CopyAction(
-    step=TemplateCopyStep(
-        type=OperationTypes.COPY,
+    step=TemplateCopyAction(
+        type=ActionType.COPY,
         from_path=["source", "file.txt"],
         to_path=["$destination", "file.txt"]
     ),

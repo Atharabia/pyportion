@@ -1,12 +1,12 @@
 from portion.base import ActionBase
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateAskStep
+from portion.models import TemplateAskAction
 
 
-class AskAction(ActionBase[TemplateAskStep]):
+class AskAction(ActionBase[TemplateAskAction]):
     def __init__(self,
-                 step: TemplateAskStep,
+                 step: TemplateAskAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

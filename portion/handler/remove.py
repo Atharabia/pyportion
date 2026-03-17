@@ -11,8 +11,6 @@ class RemoveHandler(HandlerBase):
         super().__init__(app)
 
     def register_commands(self) -> None:
-        remove_command = RemoveCommand()
-
         @self.command.command(
             help="Remove a template from the project",
             no_args_is_help=True
@@ -23,4 +21,4 @@ class RemoveHandler(HandlerBase):
                 typer.Argument(help="Name of the template to remove")
             ]
         ) -> None:
-            remove_command.remove(template_name)
+            RemoveCommand().remove(template_name)

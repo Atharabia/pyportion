@@ -2,13 +2,13 @@ from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateAddPortionStep
+from portion.models import TemplateAddPortionAction
 from portion.utils import Resolver
 
 
-class AddPortion(ActionBase[TemplateAddPortionStep]):
+class AddPortion(ActionBase[TemplateAddPortionAction]):
     def __init__(self,
-                 step: TemplateAddPortionStep,
+                 step: TemplateAddPortionAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

@@ -200,23 +200,23 @@ Supported modes: `pascalcase`, `camelcase`, `titlecase`, `uppercase`, `lowercase
 
 ## Adding a New Step Action
 
-1. **Define the step model** in `portion/models/template.py`:
+1. **Define the action model** in `portion/models/template.py`:
 
     ```python
-    class MyStep(BaseModel):
-        type: Literal["my_step"]
+    class MyAction(BaseModel):
+        type: Literal["my_action"]
         my_field: str
     ```
 
-    Add `MyStep` to the `TemplatePortionStepsType` union and `OperationTypes` enum.
+    Add `MyAction` to the `TemplatePortionStepsType` union and `ActionType` enum.
 
-2. **Create the action** in `portion/step_actions/my_step.py`:
+2. **Create the action** in `portion/step_actions/my_action.py`:
 
     ```python
     from portion.base.action import ActionBase
-    from portion.models.template import MyStep
+    from portion.models.template import MyAction
 
-    class MyStepAction(ActionBase[MyStep]):
+    class MyActionHandler(ActionBase[MyAction]):
         def prepare(self) -> None:
             # resolve variables, validate
             pass
@@ -229,15 +229,15 @@ Supported modes: `pascalcase`, `camelcase`, `titlecase`, `uppercase`, `lowercase
 3. **Register the action** in `portion/step_actions/__init__.py`:
 
     ```python
-    from portion.step_actions.my_step import MyStepAction
+    from portion.step_actions.my_action import MyActionHandler
 
     def create_action(step, ...):
         ...
-        if step.type == "my_step":
-            return MyStepAction(step, ...)
+        if step.type == "my_action":
+            return MyActionHandler(step, ...)
     ```
 
-4. **Add a test** in `tests/step_actions/test_my_step.py`.
+4. **Add a test** in `tests/step_actions/test_my_action.py`.
 
 ---
 

@@ -55,7 +55,7 @@ def test_download_template(mock_user_data_dir: PosixPath,
     assert tm.is_template_exists(template_name) is True
 
 
-def test_download_template_wrong_link() -> None:
+def test_download_template_wrong_link(mock_user_data_dir: PosixPath) -> None:
     tm = TemplateManager()
     tm.create_pyportion_dir()
     result = tm.download_template("invalid_link")

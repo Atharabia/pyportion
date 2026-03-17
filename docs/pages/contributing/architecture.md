@@ -64,7 +64,7 @@ All data structures are Pydantic models.
 
 | <div style="min-width:120px">File</div> | <div style="min-width:240px">Models</div> | Purpose |
 |---|---|---|
-| `template.py` | `TemplateConfig`, `TemplatePortion`, step types | Parsed `.pyportion.yml` of a template |
+| `template.py` | `TemplateConfig`, `TemplatePortion`, action types | Parsed `.pyportion.yml` of a template |
 | `project.py` | `PortionConfig`, `ProjectTemplate` | Parsed `.pyportion.yml` of a project |
 | `state.py` | `cli_state` | Global CLI flags (`verbose`, `auto_confirm`) |
 | `message.py` | `Message` | All user-facing strings in one place |

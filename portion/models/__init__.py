@@ -3,18 +3,18 @@ from .message import Message
 from .project import PortionConfig
 from .project import ProjectTemplate
 from .state import cli_state
-from .template import OperationTypes
-from .template import TemplateAddImportStep
-from .template import TemplateAddPortionStep
-from .template import TemplateAddToListStep
-from .template import TemplateAskStep
+from .template import ActionType
+from .template import TemplateAddImportAction
+from .template import TemplateAddPortionAction
+from .template import TemplateAddToListAction
+from .template import TemplateAskAction
 from .template import TemplateConfig
-from .template import TemplateCopyStep
+from .template import TemplateCopyAction
 from .template import TemplatePortion
 from .template import TemplatePortionStepsType
+from .template import TemplateReplaceAction
 from .template import TemplateReplacement
-from .template import TemplateReplaceStep
-from .template import TemplateSetVar
+from .template import TemplateSetVarAction
 
 __all__ = [
     "Config",
@@ -22,17 +22,17 @@ __all__ = [
     "PortionConfig",
     "ProjectTemplate",
     "cli_state",
-    "OperationTypes",
-    "TemplateAddImportStep",
-    "TemplateAddPortionStep",
-    "TemplateAddToListStep",
-    "TemplateAskStep",
+    "ActionType",
+    "TemplateAddImportAction",
+    "TemplateAddPortionAction",
+    "TemplateAddToListAction",
+    "TemplateAskAction",
     "TemplateConfig",
-    "TemplateCopyStep",
+    "TemplateCopyAction",
     "TemplatePortion",
     "TemplatePortionStepsType",
     "TemplateReplacement",
-    "TemplateReplaceStep",
-    "TemplateSetVar",
+    "TemplateReplaceAction",
+    "TemplateSetVarAction",
     "TemplateSource",
 ]

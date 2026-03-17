@@ -11,8 +11,6 @@ class TemplateHandler(HandlerBase):
         super().__init__(app, "template")
 
     def register_commands(self) -> None:
-        template_command = TemplateCommand()
-
         @self.command.command(
             name="download",
             help="Download templates by link or project config",
@@ -31,7 +29,7 @@ class TemplateHandler(HandlerBase):
                 )
             ] = None,
         ) -> None:
-            template_command.download(link, version)
+            TemplateCommand().download(link, version)
 
         @self.command.command(
             name="remove",
@@ -44,14 +42,14 @@ class TemplateHandler(HandlerBase):
                 typer.Argument(help="Name of the template to remove")
             ]
         ) -> None:
-            template_command.remove(template_name)
+            TemplateCommand().remove(template_name)
 
         @self.command.command(
             name="list",
             help="List all available templates"
         )
         def list() -> None:
-            template_command.list()
+            TemplateCommand().list()
 
         @self.command.command(
             name="info",
@@ -64,4 +62,4 @@ class TemplateHandler(HandlerBase):
                 typer.Argument(help="Name of the template")
             ]
         ) -> None:
-            template_command.info(template_name)
+            TemplateCommand().info(template_name)

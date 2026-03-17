@@ -1,14 +1,14 @@
 from pathlib import Path
 
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateAddPortionStep
+from portion.models import TemplateAddPortionAction
 from portion.step_actions.add_portion import AddPortion
 
 add_portion_action = AddPortion(
-    step=TemplateAddPortionStep(
-        type=OperationTypes.ADD_IMPORT,
+    step=TemplateAddPortionAction(
+        type=ActionType.ADD_IMPORT,
         path=["$project_dir", "main.py"],
         value="$module"),
     project_template=ProjectTemplate(

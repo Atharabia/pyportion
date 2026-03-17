@@ -2,13 +2,13 @@ from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateAddToListStep
+from portion.models import TemplateAddToListAction
 from portion.utils import Resolver
 
 
-class AddToListAction(ActionBase[TemplateAddToListStep]):
+class AddToListAction(ActionBase[TemplateAddToListAction]):
     def __init__(self,
-                 step: TemplateAddToListStep,
+                 step: TemplateAddToListAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

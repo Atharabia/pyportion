@@ -1,15 +1,15 @@
 from pathlib import Path
 
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
+from portion.models import TemplateReplaceAction
 from portion.models import TemplateReplacement
-from portion.models import TemplateReplaceStep
 from portion.step_actions import ReplaceAction
 
 replace_action = ReplaceAction(
-    step=TemplateReplaceStep(
-        type=OperationTypes.REPLACE,
+    step=TemplateReplaceAction(
+        type=ActionType.REPLACE,
         path=["source", "file.txt"],
         replacements=[TemplateReplacement(
             keyword="PLACEHOLDER",
