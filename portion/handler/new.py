@@ -11,8 +11,6 @@ class NewHandler(HandlerBase):
         super().__init__(app)
 
     def register_commands(self) -> None:
-        new_command = NewCommand()
-
         @self.command.command(
             help="Create a new project from a template",
             no_args_is_help=True
@@ -26,4 +24,4 @@ class NewHandler(HandlerBase):
                     str,
                     typer.Argument(help="Name of the new project")
                 ]) -> None:
-            new_command.new(template_name, project_name)
+            NewCommand().new(template_name, project_name)

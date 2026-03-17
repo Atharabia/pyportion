@@ -1,15 +1,15 @@
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateSetVar
+from portion.models import TemplateSetVarAction
 from portion.step_actions.set_var import SetVarAction
 
 
 def test_set_var_action_prepare_no_mode():
     memory: dict[str, str] = {"source": "hello world"}
     action = SetVarAction(
-        step=TemplateSetVar(
-            type=OperationTypes.SET_VAR,
+        step=TemplateSetVarAction(
+            type=ActionType.SET_VAR,
             key="result",
             value="$source",
             mode=None
@@ -26,8 +26,8 @@ def test_set_var_action_prepare_no_mode():
 def test_set_var_action_prepare_with_mode():
     memory: dict[str, str] = {"source": "hello world"}
     action = SetVarAction(
-        step=TemplateSetVar(
-            type=OperationTypes.SET_VAR,
+        step=TemplateSetVarAction(
+            type=ActionType.SET_VAR,
             key="result",
             value="$source",
             mode="uppercase"

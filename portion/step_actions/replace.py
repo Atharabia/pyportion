@@ -2,14 +2,14 @@ from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateReplaceStep
+from portion.models import TemplateReplaceAction
 from portion.utils import Resolver
 from portion.utils import Transformer
 
 
-class ReplaceAction(ActionBase[TemplateReplaceStep]):
+class ReplaceAction(ActionBase[TemplateReplaceAction]):
     def __init__(self,
-                 step: TemplateReplaceStep,
+                 step: TemplateReplaceAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

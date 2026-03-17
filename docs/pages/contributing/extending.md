@@ -45,23 +45,23 @@ def load_handlers(cli: typer.Typer) -> None:
 
 Follow these four steps to add a new step type.
 
-**1. Define the step model** in `portion/models/template.py`:
+**1. Define the action model** in `portion/models/template.py`:
 
 ```python
-class MyStep(BaseModel):
-    type: Literal["my_step"]
+class MyAction(BaseModel):
+    type: Literal["my_action"]
     my_field: str
 ```
 
-Then add `MyStep` to the `TemplatePortionStepsType` union and add `"my_step"` to the `OperationTypes` enum.
+Then add `MyAction` to the `TemplatePortionStepsType` union and add `"my_action"` to the `ActionType` enum.
 
-**2. Create the action** in `portion/step_actions/my_step.py`:
+**2. Create the action** in `portion/step_actions/my_action.py`:
 
 ```python
 from portion.base.action import ActionBase
-from portion.models.template import MyStep
+from portion.models.template import MyAction
 
-class MyStepAction(ActionBase[MyStep]):
+class MyActionHandler(ActionBase[MyAction]):
     def prepare(self) -> None:
         # Resolve variables, validate inputs
         pass
@@ -74,12 +74,12 @@ class MyStepAction(ActionBase[MyStep]):
 **3. Register the action** in `portion/step_actions/__init__.py`:
 
 ```python
-from portion.step_actions.my_step import MyStepAction
+from portion.step_actions.my_action import MyActionHandler
 
 def create_action(step, ...):
     ...
-    if step.type == "my_step":
-        return MyStepAction(step, ...)
+    if step.type == "my_action":
+        return MyActionHandler(step, ...)
 ```
 
 **4. Add a test** in `tests/step_actions/test_my_step.py`.

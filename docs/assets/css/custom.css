@@ -367,9 +367,17 @@ body {
 
 /* Tags */
 .md-tag {
-    background: #1a1a1a !important;
-    color: #47ba47 !important;
-    border: 1px solid #2a2a2a !important;
+    display: inline-block !important;
+    background: #0d1628 !important;
+    color: #5aaaff !important;
+    border: 1px solid #3a7cc4 !important;
+    border-radius: 4px !important;
+    padding: 2px 8px !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    vertical-align: middle !important;
+    line-height: 1.6 !important;
 }
 
 /* Keyboard keys */

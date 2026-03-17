@@ -1,14 +1,14 @@
 from pathlib import Path
 
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateAddToListStep
+from portion.models import TemplateAddToListAction
 from portion.step_actions.add_to_list import AddToListAction
 
 add_to_list_action = AddToListAction(
-    step=TemplateAddToListStep(
-        type=OperationTypes.ADD_TO_LIST,
+    step=TemplateAddToListAction(
+        type=ActionType.ADD_TO_LIST,
         path=[
             "$project_dir",
             "config.py"],

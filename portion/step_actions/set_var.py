@@ -1,14 +1,14 @@
 from portion.base import ActionBase
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateSetVar
+from portion.models import TemplateSetVarAction
 from portion.utils import Resolver
 from portion.utils import Transformer
 
 
-class SetVarAction(ActionBase[TemplateSetVar]):
+class SetVarAction(ActionBase[TemplateSetVarAction]):
     def __init__(self,
-                 step: TemplateSetVar,
+                 step: TemplateSetVarAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:

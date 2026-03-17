@@ -11,8 +11,6 @@ class InitHandler(HandlerBase):
         super().__init__(app)
 
     def register_commands(self) -> None:
-        init_command = InitCommand()
-
         @self.command.command(
             help="Make current project a PyPortion project",
             no_args_is_help=True
@@ -23,4 +21,4 @@ class InitHandler(HandlerBase):
                 typer.Argument(help="Name of the project")
             ]
         ) -> None:
-            init_command.init(project_name)
+            InitCommand().init(project_name)

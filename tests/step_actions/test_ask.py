@@ -1,14 +1,14 @@
 from pytest import MonkeyPatch
 
 from portion.core import Terminal
-from portion.models import OperationTypes
+from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateAskStep
+from portion.models import TemplateAskAction
 from portion.step_actions import AskAction
 
 ask_action = AskAction(
-    step=TemplateAskStep(
-        type=OperationTypes.ASK,
+    step=TemplateAskAction(
+        type=ActionType.ASK,
         question="What is your name?",
         variable="name"
     ),

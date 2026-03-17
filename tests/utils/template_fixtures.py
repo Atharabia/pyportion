@@ -93,3 +93,27 @@ def create_template_with_portions(mock_user_data_dir: PosixPath,
     portions_dir.mkdir()
     (portions_dir / "feature1.py").write_text("# Feature 1")
     (portions_dir / "feature2.py").write_text("# Feature 2")
+
+
+def create_template_with_two_versions(mock_user_data_dir: PosixPath,
+                                      template_name: str) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+
+    for ver_str, ver_tag in [("1.0.0", "v1.0.0"), ("2.0.0", "v2.0.0")]:
+        version_path = (mock_user_data_dir / "pyportion"
+                        / template_name / ver_str)
+        version_path.mkdir(parents=True)
+        base_path = version_path / "base"
+        base_path.mkdir()
+
+        config_str = f"""\
+    name: {template_name}
+    source: https://github.com/test/template
+    version: {ver_tag}
+    description: A test template
+    author: Test Author
+    type: test
+    """
+        (version_path / ".pyportion.yml").write_text(config_str)
+        (base_path / ".pyportion.yml").touch()

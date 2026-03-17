@@ -4,8 +4,9 @@ from typing import Union
 from pydantic import BaseModel
 
 
-class OperationTypes(Enum):
+class ActionType(Enum):
     ADD_IMPORT = "add_import"
+    ADD_PORTION = "add_portion"
     ADD_TO_LIST = "add_to_list"
     ASK = "ask"
     COPY = "copy"
@@ -13,27 +14,33 @@ class OperationTypes(Enum):
     SET_VAR = "set_var"
 
 
-class TemplateAddImportStep(BaseModel):
-    type: OperationTypes
+class TemplateAddImportAction(BaseModel):
+    type: ActionType
     path: list[str]
     import_statement: str
 
 
-class TemplateAddToListStep(BaseModel):
-    type: OperationTypes
+class TemplateAddPortionAction(BaseModel):
+    type: ActionType
+    path: list[str]
+    value: str
+
+
+class TemplateAddToListAction(BaseModel):
+    type: ActionType
     path: list[str]
     list_name: str
     value: str | int | float | bool
 
 
-class TemplateAskStep(BaseModel):
-    type: OperationTypes
+class TemplateAskAction(BaseModel):
+    type: ActionType
     question: str
     variable: str
 
 
-class TemplateCopyStep(BaseModel):
-    type: OperationTypes
+class TemplateCopyAction(BaseModel):
+    type: ActionType
     from_path: list[str]
     to_path: list[str]
 
@@ -44,26 +51,26 @@ class TemplateReplacement(BaseModel):
     mode: str
 
 
-class TemplateReplaceStep(BaseModel):
-    type: OperationTypes
+class TemplateReplaceAction(BaseModel):
+    type: ActionType
     path: list[str]
     replacements: list[TemplateReplacement]
 
 
-class TemplateSetVar(BaseModel):
-    type: OperationTypes
+class TemplateSetVarAction(BaseModel):
+    type: ActionType
     key: str
     value: str
     mode: str | None = None
 
 
 TemplatePortionStepsType = Union[
-    TemplateAddImportStep,
-    TemplateAddToListStep,
-    TemplateAskStep,
-    TemplateCopyStep,
-    TemplateReplaceStep,
-    TemplateSetVar,
+    TemplateAddImportAction,
+    TemplateAddToListAction,
+    TemplateAskAction,
+    TemplateCopyAction,
+    TemplateReplaceAction,
+    TemplateSetVarAction,
 ]
 
 

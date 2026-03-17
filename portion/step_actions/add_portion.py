@@ -2,13 +2,13 @@ from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
 from portion.models import ProjectTemplate
-from portion.models import TemplateAddToListAction
+from portion.models import TemplateAddPortionAction
 from portion.utils import Resolver
 
 
-class AddToListAction(ActionBase[TemplateAddToListAction]):
+class AddPortion(ActionBase[TemplateAddPortionAction]):
     def __init__(self,
-                 step: TemplateAddToListAction,
+                 step: TemplateAddPortionAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  logger: Terminal) -> None:
@@ -19,14 +19,6 @@ class AddToListAction(ActionBase[TemplateAddToListAction]):
         self.step.path = Resolver.resolve(self.memory,
                                           self.step.path)
 
-        self.step.list_name = Resolver.resolve_variable(self.memory,
-                                                        self.step.list_name)
-
-        if isinstance(self.step.value, str):
-            self.step.value = Resolver.resolve_variable(self.memory,
-                                                        self.step.value)
-
     def apply(self) -> None:
-        self.project_manager.add_to_list(self.step.path,
-                                         self.step.list_name,
+        self.project_manager.add_portion(self.step.path,
                                          self.step.value)

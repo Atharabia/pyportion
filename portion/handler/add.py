@@ -11,8 +11,6 @@ class AddHandler(HandlerBase):
         super().__init__(app)
 
     def register_commands(self) -> None:
-        add_command = AddCommand()
-
         @self.command.command(
             help="Add a template to the project",
             no_args_is_help=True
@@ -23,4 +21,4 @@ class AddHandler(HandlerBase):
                 typer.Argument(help="Name of the template to add")
             ]
         ) -> None:
-            add_command.add(template_name)
+            AddCommand().add(template_name)

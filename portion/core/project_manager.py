@@ -124,6 +124,17 @@ class ProjectManager:
         with open(file_path, "w") as f:
             f.write(red.dumps())
 
+    def add_portion(self, path: list[str], value: str) -> None:
+        file_path = os.path.join(*path)
+
+        with open(file_path, "r") as f:
+            code = f.read()
+
+        code += f"\n{value}"
+
+        with open(file_path, "w") as f:
+            f.write(code)
+
     def get_project_info(self,
                          config: PortionConfig,
                          templates: dict[str, TemplateConfig]
