@@ -19,7 +19,7 @@ class MyAction(ActionBase[MyStep]):
         ...
 ```
 
-Steps in a portion share a `memory` dict — a plain `dict[str, str]` that is passed through every action in the run. `ask` and `set_var` write to it; all other actions read from it through the `Resolver`.
+Steps in a portion share a `memory` dict — a plain `dict[str, str]` that is passed through every action in the run. `ask`, `ask_options`, and `set_var` write to it; all other actions read from it through the `Resolver`.
 
 The factory function `create_action()` in `portion/step_actions/__init__.py` maps a step type string to the correct action class.
 
@@ -29,7 +29,8 @@ The factory function `create_action()` in `portion/step_actions/__init__.py` map
 
 | <div style="min-width:120px">Type</div> | <div style="min-width:170px">Class</div> | What it does |
 |---|---|---|
-| `ask` | `AskAction` | Prompts the user and stores the answer in `memory` |
+| `ask` | `AskAction` | Prompts the user for free text and stores the answer in `memory` |
+| `ask_options` | `AskOptionsAction` | Prompts the user to choose from a list and stores the selected value in `memory` |
 | `set_var` | `SetVarAction` | Derives a new variable from a fixed value or an existing one and stores it in `memory` |
 | `copy` | `CopyAction` | Copies a file from `.portions/` into the project |
 | `replace` | `ReplaceAction` | Replaces keyword placeholders in a file |
@@ -42,7 +43,7 @@ The factory function `create_action()` in `portion/step_actions/__init__.py` map
 
 | <div style="min-width:200px">File</div> | Class |
 |---|---|
-| `step_actions/ask.py` | `AskAction` |
+| `step_actions/ask.py` | `AskAction`, `AskOptionsAction` |
 | `step_actions/set_var.py` | `SetVarAction` |
 | `step_actions/copy.py` | `CopyAction` |
 | `step_actions/replace.py` | `ReplaceAction` |

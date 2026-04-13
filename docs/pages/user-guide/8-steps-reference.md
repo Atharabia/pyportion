@@ -22,6 +22,29 @@ Prompt the user for a value and store it in a variable for use in later steps.
 
 ---
 
+## `ask_options`
+
+Prompt the user to pick one option from a list and store the chosen value in a variable for use in later steps. The CLI shows an interactive menu (arrow keys and Enter).
+
+```yaml
+- type: ask_options
+  question: Which web framework?
+  variable: framework
+  options:
+    - django
+    - flask
+    - fastapi
+```
+
+| Field | Description |
+|---|---|
+| `question*` | The prompt shown to the user |
+| `variable*` | Variable name to store the selected option (referenced with `$variable_name`) |
+| `options*` | Non-empty list of choices; the exact string of the chosen item is stored |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
+
+---
+
 ## `set_var`
 
 Derive a new variable from a fixed value or an existing variable, optionally applying a case transformation.

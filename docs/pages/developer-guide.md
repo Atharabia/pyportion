@@ -36,7 +36,7 @@ Handler        ← registers the command with Typer, parses CLI args
 Command        ← orchestrates business logic, talks to managers
    │
    ▼
-Action         ← executes a single step (copy, replace, ask…)
+Action         ← executes a single step (copy, replace, ask, ask_options…)
 ```
 
 ### Handlers
@@ -108,14 +108,15 @@ Each step action corresponds to a `type` value in a portion's `steps` list.
 
 | Type | Class | What it does |
 |---|---|---|
-| `ask` | `AskAction` | Prompts the user and stores the answer in memory |
+| `ask` | `AskAction` | Prompts the user for free text and stores the answer in memory |
+| `ask_options` | `AskOptionsAction` | Prompts the user to choose from a list and stores the selection in memory |
 | `set_var` | `SetVarAction` | Derives a new variable from a fixed value or an existing one |
 | `copy` | `CopyAction` | Copies a file from `.portions/` into the project |
 | `replace` | `ReplaceAction` | Replaces keyword placeholders in a file |
 | `add_import` | `AddImportAction` | Appends an import statement to a Python file |
 | `add_to_list` | `AddToListAction` | Appends a value to a Python list in a file |
 
-Steps share a `memory` dict — a plain `dict[str, str]` passed through all actions in a portion run. `ask` and `set_var` write to it; `copy`, `replace`, `add_import`, and `add_to_list` read from it via the `Resolver`.
+Steps share a `memory` dict — a plain `dict[str, str]` passed through all actions in a portion run. `ask`, `ask_options`, and `set_var` write to it; `copy`, `replace`, `add_import`, and `add_to_list` read from it via the `Resolver`.
 
 ---
 

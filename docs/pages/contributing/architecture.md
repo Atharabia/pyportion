@@ -12,7 +12,7 @@ pyportion/
 │   ├── core/               # Singleton managers (Logger, TemplateManager, ProjectManager)
 │   ├── handler/            # CLI binding — registers commands with Typer
 │   ├── models/             # Pydantic data models
-│   ├── step_actions/       # Step implementations (copy, replace, ask, …)
+│   ├── step_actions/       # Step implementations (copy, replace, ask, ask_options, …)
 │   └── utils/              # Resolver and Transformer helpers
 ├── tests/                  # pytest test suite
 └── docs/                   # MkDocs documentation
@@ -34,7 +34,7 @@ Handler        ← registers the command with Typer, parses CLI args
 Command        ← orchestrates business logic, calls core managers
    │
    ▼
-Action         ← executes a single step (copy, replace, ask, …)
+Action         ← executes a single step (copy, replace, ask, ask_options, …)
 ```
 
 ### Handlers (`portion/handler/`)

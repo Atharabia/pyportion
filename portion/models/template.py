@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Union
 
 from pydantic import BaseModel
+from pydantic import Field
 
 
 class ActionType(Enum):
@@ -9,6 +10,7 @@ class ActionType(Enum):
     ADD_PORTION = "add_portion"
     ADD_TO_LIST = "add_to_list"
     ASK = "ask"
+    ASK_OPTIONS = "ask_options"
     COPY = "copy"
     REPLACE = "replace"
     SET_VAR = "set_var"
@@ -40,6 +42,12 @@ class TemplateAskAction(TemplateMixin):
     variable: str
 
 
+class TemplateAskOptionsAction(TemplateMixin):
+    question: str
+    variable: str
+    options: list[str] = Field(min_length=1)
+
+
 class TemplateCopyAction(TemplateMixin):
     from_path: list[str]
     to_path: list[str]
@@ -67,6 +75,7 @@ TemplatePortionStepsType = Union[
     TemplateAddPortionAction,
     TemplateAddToListAction,
     TemplateAskAction,
+    TemplateAskOptionsAction,
     TemplateCopyAction,
     TemplateReplaceAction,
     TemplateSetVarAction,

@@ -8,6 +8,7 @@ from .template import TemplateAddImportAction
 from .template import TemplateAddPortionAction
 from .template import TemplateAddToListAction
 from .template import TemplateAskAction
+from .template import TemplateAskOptionsAction
 from .template import TemplateConfig
 from .template import TemplateCopyAction
 from .template import TemplatePortion
@@ -27,6 +28,7 @@ __all__ = [
     "TemplateAddPortionAction",
     "TemplateAddToListAction",
     "TemplateAskAction",
+    "TemplateAskOptionsAction",
     "TemplateConfig",
     "TemplateCopyAction",
     "TemplatePortion",
