@@ -65,4 +65,4 @@ pm.add_import(["cli", "__init__.py"], "from .my_cmd import my_cmd")
 | `read_configuration(path)` | Load and parse the project's `.pyportion.yml` |
 | `replace_in_file(path, replacements)` | Do text substitution inside a file |
 | `add_import(path, import_statement)` | Append an import to a Python file |
-| `add_to_list(path, list_name, value)` | Append a value to a Python list variable |
+| `add_to_list(path, list_name, value, as_identifier=False)` | Append a value to a Python list variable (`as_identifier` writes strings unquoted) |

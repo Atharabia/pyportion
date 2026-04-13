@@ -1,4 +1,6 @@
-# Conditional Steps <span class="md-tag">Added in v1.4.0</span>
+# Conditional Steps 
+
+<span class="md-tag">Added in v1.4.0</span>
 
 Any step may include an optional `when` field. If it is present and evaluates to false, the step is skipped.
 

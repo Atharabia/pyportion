@@ -117,6 +117,67 @@ def test_add_to_list_appends_value(tmp_path: PosixPath) -> None:
     assert '"myapp"' in content
 
 
+def test_add_to_list_appends_string_as_identifier(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "mod.py"
+    py_file.write_text("__all__ = []\n")
+    pm.add_to_list(
+        [str(tmp_path), "mod.py"],
+        "__all__",
+        "MyClass",
+        as_identifier=True,
+    )
+    content = py_file.read_text()
+    assert "MyClass" in content
+    assert '"MyClass"' not in content
+
+
+def test_add_to_list_skips_identifier_when_quoted_name_present(
+        tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "mod.py"
+    py_file.write_text('__all__ = ["MyClass"]\n')
+    pm.add_to_list(
+        [str(tmp_path), "mod.py"],
+        "__all__",
+        "MyClass",
+        as_identifier=True,
+    )
+    assert py_file.read_text().count("MyClass") == 1
+
+
+def test_add_to_list_skips_identifier_when_bare_name_already_present(
+        tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "mod.py"
+    py_file.write_text("__all__ = []\n")
+    pm.add_to_list(
+        [str(tmp_path), "mod.py"],
+        "__all__",
+        "MyClass",
+        as_identifier=True,
+    )
+    pm.add_to_list(
+        [str(tmp_path), "mod.py"],
+        "__all__",
+        "MyClass",
+        as_identifier=True,
+    )
+    assert py_file.read_text().count("MyClass") == 1
+
+
+def test_add_to_list_appends_bare_identifier_when_list_has_other_name(
+        tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "mod.py"
+    py_file.write_text("__all__ = [OtherClass]\n")
+    pm.add_to_list(
+        [str(tmp_path), "mod.py"],
+        "__all__",
+        "MyClass",
+        as_identifier=True,
+    )
+    content = py_file.read_text()
+    assert "OtherClass" in content
+    assert "MyClass" in content
+
+
 def test_add_to_list_skips_when_value_present(tmp_path: PosixPath) -> None:
     py_file = tmp_path / "config.py"
     py_file.write_text('APPS = ["myapp"]\n')

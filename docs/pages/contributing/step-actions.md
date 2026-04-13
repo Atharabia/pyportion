@@ -35,7 +35,7 @@ The factory function `create_action()` in `portion/step_actions/__init__.py` map
 | `copy` | `CopyAction` | Copies a file from `.portions/` into the project |
 | `replace` | `ReplaceAction` | Replaces keyword placeholders in a file |
 | `add_import` | `AddImportAction` | Appends an import statement to a Python file |
-| `add_to_list` | `AddToListAction` | Appends a value to a Python list variable in a file |
+| `add_to_list` | `AddToListAction` | Appends a value to a Python list variable in a file (optional `as_identifier` for unquoted strings) |
 
 ---
 

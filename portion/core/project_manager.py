@@ -17,6 +17,20 @@ from portion.models import TemplateConfig
 from portion.models import TemplateReplacement
 
 
+def _list_element_matches(value: str | int | float | bool,
+                          *,
+                          element_dump: str,
+                          as_identifier: bool) -> bool:
+    if isinstance(value, str) and as_identifier:
+        stripped = element_dump.strip()
+        if stripped == value:
+            return True
+        if stripped.strip("\"'") == value:
+            return True
+        return False
+    return element_dump.strip("\"'") == str(value)
+
+
 class ProjectManager:
     def __new__(cls) -> ProjectManager:
         if not hasattr(cls, "_instance"):
@@ -99,7 +113,8 @@ class ProjectManager:
     def add_to_list(self,
                     path: list[str],
                     list_name: str,
-                    value: str | int | float | bool) -> None:
+                    value: str | int | float | bool,
+                    as_identifier: bool = False) -> None:
         file_path = os.path.join(*path)
 
         with open(file_path, "r") as f:
@@ -113,11 +128,21 @@ class ProjectManager:
                               target=lambda x: x.dumps() == list_name)
 
         list_node = assign.value
-        if any(el.dumps().strip("\"'") == str(value) for el in list_node):
+        if any(
+            _list_element_matches(
+                value,
+                element_dump=el.dumps(),
+                as_identifier=as_identifier,
+            )
+            for el in list_node
+        ):
             return
 
         if isinstance(value, str):
-            list_node.append(f'"{value}"')
+            if as_identifier:
+                list_node.append(value)
+            else:
+                list_node.append(f'"{value}"')
         else:
             list_node.append(str(value))
 

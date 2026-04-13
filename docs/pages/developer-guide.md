@@ -98,7 +98,7 @@ A singleton that handles all project file operations. Uses [RedBaron](https://re
 | `read_configuration(path)` | Load and parse the project's `.pyportion.yml` |
 | `replace_in_file(path, replacements)` | Do text substitution inside a file |
 | `add_import(path, import_statement)` | Append an import to a Python file |
-| `add_to_list(path, list_name, value)` | Append a value to a Python list variable |
+| `add_to_list(path, list_name, value, as_identifier=False)` | Append a value to a Python list variable (`as_identifier` writes strings unquoted) |
 
 ---
 
@@ -114,7 +114,7 @@ Each step action corresponds to a `type` value in a portion's `steps` list.
 | `copy` | `CopyAction` | Copies a file from `.portions/` into the project |
 | `replace` | `ReplaceAction` | Replaces keyword placeholders in a file |
 | `add_import` | `AddImportAction` | Appends an import statement to a Python file |
-| `add_to_list` | `AddToListAction` | Appends a value to a Python list in a file |
+| `add_to_list` | `AddToListAction` | Appends a value to a Python list in a file (`as_identifier` for unquoted strings) |
 
 Steps share a `memory` dict — a plain `dict[str, str]` passed through all actions in a portion run. `ask`, `ask_options`, and `set_var` write to it; `copy`, `replace`, `add_import`, and `add_to_list` read from it via the `Resolver`.
 

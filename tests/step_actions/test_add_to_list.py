@@ -43,3 +43,29 @@ def test_add_to_list_action_apply(tmp_path: Path):
 
     content = py_file.read_text()
     assert '"myapp"' in content
+
+
+def test_add_to_list_action_apply_as_identifier(tmp_path: Path):
+    py_file = tmp_path / "__init__.py"
+    py_file.write_text("__all__ = []\n")
+
+    action = AddToListAction(
+        step=TemplateAddToListAction(
+            type=ActionType.ADD_TO_LIST,
+            path=[str(tmp_path), "__init__.py"],
+            list_name="__all__",
+            value="MyClass",
+            as_identifier=True,
+        ),
+        project_template=ProjectTemplate(
+            name="Sample Template",
+            source="",
+            version="",
+        ),
+        memory={},
+        logger=Terminal(),
+    )
+    action.apply()
+    content = py_file.read_text()
+    assert "MyClass" in content
+    assert '"MyClass"' not in content

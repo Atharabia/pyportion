@@ -35,6 +35,7 @@ class TemplateAddToListAction(TemplateMixin):
     path: list[str]
     list_name: str
     value: str | int | float | bool
+    as_identifier: bool = False
 
 
 class TemplateAskAction(TemplateMixin):

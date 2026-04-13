@@ -29,4 +29,5 @@ class AddToListAction(ActionBase[TemplateAddToListAction]):
     def apply(self) -> None:
         self.project_manager.add_to_list(self.step.path,
                                          self.step.list_name,
-                                         self.step.value)
+                                         self.step.value,
+                                         as_identifier=self.step.as_identifier)

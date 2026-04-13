@@ -22,7 +22,9 @@ Prompt the user for a value and store it in a variable for use in later steps.
 
 ---
 
-## `ask_options` <span class="md-tag">Added in v1.5.0</span>
+## `ask_options` 
+
+<span class="md-tag">Added in v1.5.0</span>
 
 Prompt the user to pick one option from a list and store the chosen value in a variable for use in later steps. The CLI shows an interactive menu (arrow keys and Enter).
 
@@ -125,7 +127,9 @@ Append an import statement to a Python file.
 
 ---
 
-## `add_portion` <span class="md-tag">Added in v1.3.0</span>
+## `add_portion` 
+
+<span class="md-tag">Added in v1.3.0</span>
 
 Run another portion from within a portion step. Useful for composing reusable portions together.
 
@@ -145,18 +149,20 @@ Run another portion from within a portion step. Useful for composing reusable po
 
 ## `add_to_list`
 
-Append a value to a Python list variable in a file.
+Append a value to a Python list variable in a file. Values are `str`, `int`, `float`, or `bool`. String values are written as quoted string literals by default.
 
 ```yaml
 - type: add_to_list
   path: ["cli", "commands", "__init__.py"]
   list_name: "__all__"
   value: "$command_class"
+  as_identifier: true
 ```
 
 | Field | Description |
 |---|---|
 | `path*` | Path segments to the target Python file |
 | `list_name*` | Name of the list variable to append to |
-| `value*` | Value to append (supports variable substitution) |
+| `value*` | Value to append (for strings, `$name` placeholders are replaced from memory) |
+| `as_identifier` | If `true`, string values are written without quotes. Default `false`. `Added in v1.5.0` |
 | `when` | Optional condition; the step runs only if it evaluates to true. |
