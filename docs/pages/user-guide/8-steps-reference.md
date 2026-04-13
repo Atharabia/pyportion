@@ -22,7 +22,7 @@ Prompt the user for a value and store it in a variable for use in later steps.
 
 ---
 
-## `ask_options`
+## `ask_options` <span class="md-tag">Added in v1.5.0</span>
 
 Prompt the user to pick one option from a list and store the chosen value in a variable for use in later steps. The CLI shows an interactive menu (arrow keys and Enter).
 
