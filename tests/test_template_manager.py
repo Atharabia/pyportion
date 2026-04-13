@@ -74,7 +74,6 @@ def test_delete_if_not_template(mock_user_data_dir: PosixPath) -> None:
     assert tm.delete_if_not_template(template_name, VERSION) is True
     assert version_path.exists() is False
 
-    # Parent dir also removed when empty
     template_path = mock_user_data_dir / "pyportion" / template_name
     assert template_path.exists() is False
 

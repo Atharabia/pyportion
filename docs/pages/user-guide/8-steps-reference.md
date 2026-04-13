@@ -18,6 +18,7 @@ Prompt the user for a value and store it in a variable for use in later steps.
 |---|---|
 | `question*` | The prompt shown to the user |
 | `variable*` | Variable name to store the answer (referenced with `$variable_name`) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -37,6 +38,7 @@ Derive a new variable from a fixed value or an existing variable, optionally app
 | `key*` | Name of the new variable |
 | `value*` | Source value (can reference an existing variable) |
 | `mode` | Transformation to apply: `pascalcase`, `camelcase`, `titlecase`, `uppercase`, `lowercase` |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -54,6 +56,7 @@ Copy a file from `.portions/` into the project directory.
 |---|---|
 | `from_path*` | Path segments relative to `.portions/` |
 | `to_path*` | Destination path segments in the project (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -77,6 +80,7 @@ Replace keyword placeholders inside a file with variable values.
 | `replacements[].keyword*` | Literal string to search for in the file |
 | `replacements[].value*` | Replacement value (supports variable substitution) |
 | `replacements[].mode` | Case transformation applied to the replacement value |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -94,6 +98,7 @@ Append an import statement to a Python file.
 |---|---|
 | `path*` | Path segments to the target Python file |
 | `import_statement*` | The import line to add (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -111,6 +116,7 @@ Run another portion from within a portion step. Useful for composing reusable po
 |---|---|
 | `path*` | Path segments to the target directory or file |
 | `value*` | Name of the portion to apply (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
 
@@ -130,3 +136,4 @@ Append a value to a Python list variable in a file.
 | `path*` | Path segments to the target Python file |
 | `list_name*` | Name of the list variable to append to |
 | `value*` | Value to append (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |

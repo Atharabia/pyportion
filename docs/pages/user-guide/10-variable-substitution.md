@@ -1,6 +1,6 @@
 # Variables
 
-Variables collected via `ask` or derived via `set_var` can be referenced anywhere in step fields using the `$variable_name` syntax.
+Variables collected via `ask` or derived via `set_var` can be referenced anywhere in step fields using the `$variable_name` syntax. Those same names can appear in a step’s optional `when` condition; see [Conditional steps (`when`)](9-conditional-when.md).
 
 ## Usage
 

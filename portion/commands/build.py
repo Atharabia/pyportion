@@ -8,6 +8,7 @@ from portion.models import ProjectTemplate
 from portion.models import TemplatePortion
 from portion.models import cli_state
 from portion.step_actions import create_action
+from portion.utils import evaluate_when
 
 
 class BuildCommand(CommandBase):
@@ -52,7 +53,13 @@ class BuildCommand(CommandBase):
                    for step in portion.steps]
 
         for action in actions:
-            action.prepare()
+            if evaluate_when(action.step.when, self.memory):
+                action.prepare()
+            else:
+                action.skipped = True
+                if cli_state.verbose:
+                    self.terminal.info(Message.Build.SKIP_STEP,
+                                       step_type=action.step.type.value)
 
         if not cli_state.auto_confirm:
             if not self.terminal.prompt(Message.Build.CONFIRMATION):
@@ -60,6 +67,9 @@ class BuildCommand(CommandBase):
                 return None
 
         for action in actions:
+            if action.skipped:
+                continue
+
             self.terminal.pulse(Message.Build.RUNNING_STEP,
                                 step_type=action.step.type.value)
             action.apply()

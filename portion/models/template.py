@@ -14,33 +14,33 @@ class ActionType(Enum):
     SET_VAR = "set_var"
 
 
-class TemplateAddImportAction(BaseModel):
+class TemplateMixin(BaseModel):
     type: ActionType
+    when: str | None = None
+
+
+class TemplateAddImportAction(TemplateMixin):
     path: list[str]
     import_statement: str
 
 
-class TemplateAddPortionAction(BaseModel):
-    type: ActionType
+class TemplateAddPortionAction(TemplateMixin):
     path: list[str]
     value: str
 
 
-class TemplateAddToListAction(BaseModel):
-    type: ActionType
+class TemplateAddToListAction(TemplateMixin):
     path: list[str]
     list_name: str
     value: str | int | float | bool
 
 
-class TemplateAskAction(BaseModel):
-    type: ActionType
+class TemplateAskAction(TemplateMixin):
     question: str
     variable: str
 
 
-class TemplateCopyAction(BaseModel):
-    type: ActionType
+class TemplateCopyAction(TemplateMixin):
     from_path: list[str]
     to_path: list[str]
 
@@ -51,14 +51,12 @@ class TemplateReplacement(BaseModel):
     mode: str
 
 
-class TemplateReplaceAction(BaseModel):
-    type: ActionType
+class TemplateReplaceAction(TemplateMixin):
     path: list[str]
     replacements: list[TemplateReplacement]
 
 
-class TemplateSetVarAction(BaseModel):
-    type: ActionType
+class TemplateSetVarAction(TemplateMixin):
     key: str
     value: str
     mode: str | None = None
@@ -66,6 +64,7 @@ class TemplateSetVarAction(BaseModel):
 
 TemplatePortionStepsType = Union[
     TemplateAddImportAction,
+    TemplateAddPortionAction,
     TemplateAddToListAction,
     TemplateAskAction,
     TemplateCopyAction,

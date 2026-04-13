@@ -105,5 +105,6 @@ The files inside can contain placeholder keywords that the `replace` step will s
 ## Next Steps
 
 - [Steps Reference](8-steps-reference.md) — all available step types and their fields
-- [Variables](9-variable-substitution.md) — how to use variables across steps
-- [Publishing a Template](10-publishing-a-template.md) — how to share your template with others
+- [Conditional steps (`when`)](9-conditional-when.md) — optional `when` on any step (v1.4.0+)
+- [Variables](10-variable-substitution.md) — how to use variables across steps
+- [Publishing a Template](11-publishing-a-template.md) — how to share your template with others

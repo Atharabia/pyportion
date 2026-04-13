@@ -32,6 +32,7 @@ class Message:
         COLLECTING_PORTIONS = "Collecting all portions"
         NO_PORTION = "There is no portion called {portion_name}"
         RUNNING_STEP = "Running step: {step_type}"
+        SKIP_STEP = "Skipping step: {step_type} (when is false)"
         CONFIRMATION = "Do you want to continue?"
         ABORT = "[bold red]Aborted[/]"
 

@@ -17,6 +17,7 @@ class ActionBase(Generic[TStep]):
         self.project_template = project_template
         self.memory = memory
         self.logger = logger
+        self.skipped = False
 
     def prepare(self) -> None:
         ...

@@ -58,8 +58,9 @@ nav:
         - Cloning a Project: pages/user-guide/6-syncing-templates.md
         - Template Creation: pages/user-guide/7-template-creation.md
         - Steps Reference: pages/user-guide/8-steps-reference.md
-        - Variables: pages/user-guide/9-variable-substitution.md
-        - Publishing a Template: pages/user-guide/10-publishing-a-template.md
+        - Conditional Steps: pages/user-guide/9-conditional-steps.md
+        - Variables: pages/user-guide/10-variable-substitution.md
+        - Publishing a Template: pages/user-guide/11-publishing-a-template.md
     - Official Templates: pages/official-templates.md
     - Contributing:
         - Overview: pages/contributing/index.md

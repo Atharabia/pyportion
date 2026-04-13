@@ -7,6 +7,7 @@ from portion.commands import BuildCommand
 from portion.models.project import ProjectTemplate
 from portion.models.template import TemplatePortion
 from portion.portion import Portion
+from tests.utils import create_template_with_conditional_steps
 from tests.utils import create_template_with_portions
 from tests.utils import strip_ansi
 
@@ -129,3 +130,45 @@ def test_build_command_multiple_portions(mock_user_data_dir: PosixPath,
         assert result2.exit_code == 0
         assert os.path.exists("feature1.py")
         assert os.path.exists("feature2.py")
+
+
+def test_build_skips_step_when_false_runs_remaining_steps(
+    mock_user_data_dir: PosixPath,
+    app: Portion,
+) -> None:
+    runner = CliRunner()
+    template_name = "when-template"
+    create_template_with_conditional_steps(mock_user_data_dir, template_name)
+
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+        runner.invoke(app.cli, ["new", template_name, project_name])
+        os.chdir(project_name)
+
+        result = runner.invoke(app.cli, ["-y", "build", "cond"])
+        assert result.exit_code == 0
+        assert os.path.exists("kept.py")
+        assert not os.path.exists("skipped_only.py")
+
+
+def test_build_verbose_logs_skipped_step(
+    mock_user_data_dir: PosixPath,
+    app: Portion,
+) -> None:
+    runner = CliRunner()
+    template_name = "when-verbose-template"
+    create_template_with_conditional_steps(mock_user_data_dir, template_name)
+
+    with runner.isolated_filesystem():
+        project_name = "test-project"
+        runner.invoke(app.cli, ["new", template_name, project_name])
+        os.chdir(project_name)
+
+        result = runner.invoke(
+            app.cli,
+            ["-v", "-y", "build", "cond"],
+        )
+        assert result.exit_code == 0
+        out = strip_ansi(result.stdout)
+        assert "Skipping step:" in out
+        assert "copy" in out

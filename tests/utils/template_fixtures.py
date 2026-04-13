@@ -95,6 +95,50 @@ def create_template_with_portions(mock_user_data_dir: PosixPath,
     (portions_dir / "feature2.py").write_text("# Feature 2")
 
 
+def create_template_with_conditional_steps(mock_user_data_dir: PosixPath,
+                                           template_name: str) -> None:
+    tm = TemplateManager()
+    tm.create_pyportion_dir()
+
+    version_path = (mock_user_data_dir / "pyportion"
+                    / template_name / VERSION_DIR)
+    version_path.mkdir(parents=True)
+    base_path = version_path / "base"
+    base_path.mkdir()
+
+    config_str = f"""\
+    name: {template_name}
+    source: https://github.com/test/template
+    version: {VERSION}
+    description: A test template with when steps
+    author: Test Author
+    type: test
+    portions:
+      - name: cond
+        steps:
+          - type: set_var
+            key: flag
+            value: "yes"
+          - type: copy
+            when: $flag == no
+            from_path: ["skipped_only.py"]
+            to_path: ["skipped_only.py"]
+          - type: copy
+            when: $flag == yes
+            from_path: ["feature1.py"]
+            to_path: ["kept.py"]
+    """
+
+    config_file = version_path / ".pyportion.yml"
+    config_file.write_text(config_str)
+    (base_path / ".pyportion.yml").touch()
+
+    portions_dir = version_path / ".portions"
+    portions_dir.mkdir()
+    (portions_dir / "skipped_only.py").write_text("# skipped")
+    (portions_dir / "feature1.py").write_text("# kept")
+
+
 def create_template_with_two_versions(mock_user_data_dir: PosixPath,
                                       template_name: str) -> None:
     tm = TemplateManager()
