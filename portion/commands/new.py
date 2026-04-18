@@ -3,6 +3,9 @@ from portion.core import ProjectManager
 from portion.core import TemplateManager
 from portion.models import Message
 from portion.models import ProjectTemplate
+from portion.models import cli_state
+from portion.step_actions import create_action
+from portion.utils import evaluate_when
 
 
 class NewCommand(CommandBase):
@@ -10,6 +13,31 @@ class NewCommand(CommandBase):
         super().__init__()
         self.project_manager = ProjectManager()
         self.template_manager = TemplateManager()
+
+    def _run_setup(self, setup, project_template: ProjectTemplate) -> None:
+        self.terminal.pulse(Message.New.RUNNING_SETUP)
+        memory: dict[str, str] = {}
+
+        for portion in setup:
+            actions = [create_action(step, project_template, memory,
+                                     self.terminal)
+                       for step in portion.steps]
+
+            for action in actions:
+                if evaluate_when(action.step.when, memory):
+                    action.prepare()
+                else:
+                    action.skipped = True
+                    if cli_state.verbose:
+                        self.terminal.info(Message.New.SKIP_SETUP_STEP,
+                                           step_type=action.step.type.value)
+
+            for action in actions:
+                if action.skipped:
+                    continue
+                self.terminal.pulse(Message.New.RUNNING_SETUP_STEP,
+                                    step_type=action.step.type.value)
+                action.apply()
 
     def new(self, template_name: str, project_name: str) -> None:
         self.terminal.pulse(Message.New.PROJECT_CHECK)
@@ -44,10 +72,14 @@ class NewCommand(CommandBase):
                                             project_name)
         self.project_manager.initialize_project(project_name, project_name)
 
+        project_template = ProjectTemplate(name=tconfig.name,
+                                           source=tconfig.source,
+                                           version=version)
         pconfig = self.project_manager.read_configuration(project_name)
-        pconfig.templates.append(ProjectTemplate(name=tconfig.name,
-                                                 source=tconfig.source,
-                                                 version=version))
+        pconfig.templates.append(project_template)
         self.project_manager.update_configuration(project_name, pconfig)
+
+        if tconfig.setup:
+            self._run_setup(tconfig.setup, project_template)
 
         self.terminal.info(Message.New.CREATED, project_name=project_name)

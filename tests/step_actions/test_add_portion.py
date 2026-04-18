@@ -18,7 +18,7 @@ add_portion_action = AddPortion(
     memory={
         "project_dir": "myproject",
         "module": "some_module"},
-    logger=Terminal())
+    terminal=Terminal())
 
 
 def test_add_portion_prepare():

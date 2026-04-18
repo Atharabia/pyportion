@@ -11,8 +11,8 @@ class CopyAction(ActionBase[TemplateCopyAction]):
                  step: TemplateCopyAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Terminal) -> None:
-        super().__init__(step, project_template, memory, logger)
+                 terminal: Terminal) -> None:
+        super().__init__(step, project_template, memory, terminal)
         self.template_manager = TemplateManager()
 
     def prepare(self) -> None:

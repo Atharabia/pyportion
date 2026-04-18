@@ -18,8 +18,8 @@ def test_create_ask_action():
     project_template = ProjectTemplate(name="Test Template",
                                        source="", version="")
     memory: dict[str, str] = {}
-    logger = Terminal()
-    action = create_action(step, project_template, memory, logger)
+    terminal = Terminal()
+    action = create_action(step, project_template, memory, terminal)
     assert isinstance(action, AskAction)
 
 
@@ -33,6 +33,6 @@ def test_create_ask_options_action():
     project_template = ProjectTemplate(name="Test Template",
                                        source="", version="")
     memory: dict[str, str] = {}
-    logger = Terminal()
-    action = create_action(step, project_template, memory, logger)
+    terminal = Terminal()
+    action = create_action(step, project_template, memory, terminal)
     assert isinstance(action, AskOptionsAction)

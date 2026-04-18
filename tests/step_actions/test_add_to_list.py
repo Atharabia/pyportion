@@ -22,7 +22,7 @@ add_to_list_action = AddToListAction(
         "project_dir": "myproject",
         "list_var": "INSTALLED_APPS",
                     "item_val": "myapp"},
-    logger=Terminal())
+    terminal=Terminal())
 
 
 def test_add_to_list_action_prepare():
@@ -63,7 +63,7 @@ def test_add_to_list_action_apply_as_identifier(tmp_path: Path):
             version="",
         ),
         memory={},
-        logger=Terminal(),
+        terminal=Terminal(),
     )
     action.apply()
     content = py_file.read_text()

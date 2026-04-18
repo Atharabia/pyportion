@@ -16,7 +16,7 @@ copy_action = CopyAction(
                                      source="",
                                      version=""),
     memory={"destination": "dest_folder"},
-    logger=Terminal()
+    terminal=Terminal()
 )
 
 

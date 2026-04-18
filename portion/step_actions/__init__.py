@@ -8,6 +8,7 @@ from .add_portion import AddPortion
 from .add_to_list import AddToListAction
 from .ask import AskAction
 from .ask import AskOptionsAction
+from .bash_command import BashAction
 from .copy import CopyAction
 from .replace import ReplaceAction
 from .set_var import SetVarAction
@@ -18,6 +19,7 @@ all_actions = {
     "add_to_list": AddToListAction,
     "ask": AskAction,
     "ask_options": AskOptionsAction,
+    "bash": BashAction,
     "copy": CopyAction,
     "replace": ReplaceAction,
     "set_var": SetVarAction,

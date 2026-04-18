@@ -12,8 +12,8 @@ class ReplaceAction(ActionBase[TemplateReplaceAction]):
                  step: TemplateReplaceAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Terminal) -> None:
-        super().__init__(step, project_template, memory, logger)
+                 terminal: Terminal) -> None:
+        super().__init__(step, project_template, memory, terminal)
         self.project_manager = ProjectManager()
 
     def prepare(self) -> None:

@@ -9,7 +9,11 @@ class Resolver:
         def repl(match: re.Match) -> str:
             key = match.group(1)
             return memory.get(key, match.group(0))
-        return re.sub(r"\$(\w+)", repl, text)
+        previous = None
+        while previous != text:
+            previous = text
+            text = re.sub(r"\$(\w+)", repl, text)
+        return text
 
     @classmethod
     def resolve(cls,

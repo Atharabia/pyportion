@@ -12,11 +12,11 @@ class ActionBase(Generic[TStep]):
                  step: TStep,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
-                 logger: Terminal) -> None:
+                 terminal: Terminal) -> None:
         self.step = step
         self.project_template = project_template
         self.memory = memory
-        self.logger = logger
+        self.terminal = terminal
         self.skipped = False
 
     def prepare(self) -> None:

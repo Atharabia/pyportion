@@ -11,6 +11,7 @@ class ActionType(Enum):
     ADD_TO_LIST = "add_to_list"
     ASK = "ask"
     ASK_OPTIONS = "ask_options"
+    BASH = "bash"
     COPY = "copy"
     REPLACE = "replace"
     SET_VAR = "set_var"
@@ -49,6 +50,11 @@ class TemplateAskOptionsAction(TemplateMixin):
     options: list[str] = Field(min_length=1)
 
 
+class TemplateBashCommand(TemplateMixin):
+    command: str
+    variable: str
+
+
 class TemplateCopyAction(TemplateMixin):
     from_path: list[str]
     to_path: list[str]
@@ -77,6 +83,7 @@ TemplatePortionStepsType = Union[
     TemplateAddToListAction,
     TemplateAskAction,
     TemplateAskOptionsAction,
+    TemplateBashCommand,
     TemplateCopyAction,
     TemplateReplaceAction,
     TemplateSetVarAction,
@@ -96,4 +103,5 @@ class TemplateConfig(BaseModel):
     author: str
     type: str
 
+    setup: list[TemplatePortion] = []
     portions: list[TemplatePortion] = []

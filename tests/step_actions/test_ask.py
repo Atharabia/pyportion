@@ -18,7 +18,7 @@ ask_action = AskAction(
                                      source="",
                                      version=""),
     memory={},
-    logger=Terminal()
+    terminal=Terminal()
 )
 
 
@@ -49,7 +49,7 @@ ask_options_action = AskOptionsAction(
                                      source="",
                                      version=""),
     memory={},
-    logger=Terminal()
+    terminal=Terminal()
 )
 
 

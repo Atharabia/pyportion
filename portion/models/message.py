@@ -3,6 +3,10 @@ from dataclasses import dataclass
 
 class Message:
     @dataclass
+    class General:
+        RUNNING_BASH = "Running bash script: {}"
+
+    @dataclass
     class Init:
         CHECKING_INIT = "Checking current path: {path}"
 
@@ -65,6 +69,10 @@ class Message:
 
         CREATED = ("[bold #47ba47]{project_name}[/] project is "
                    "successfully created")
+
+        RUNNING_SETUP = "Running setup"
+        RUNNING_SETUP_STEP = "Running setup step: {step_type}"
+        SKIP_SETUP_STEP = "Skipping setup step: {step_type} (when is false)"
 
     @dataclass
     class Remove:

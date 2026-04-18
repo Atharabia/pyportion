@@ -22,7 +22,7 @@ replace_action = ReplaceAction(
                                      source="",
                                      version=""),
     memory={"new_value": "hello world"},
-    logger=Terminal()
+    terminal=Terminal()
 )
 
 

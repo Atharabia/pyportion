@@ -20,7 +20,7 @@ add_import_action = AddImportAction(
     memory={
         "project_dir": "myproject",
         "module": "os"},
-    logger=Terminal())
+    terminal=Terminal())
 
 
 def test_add_import_action_prepare():

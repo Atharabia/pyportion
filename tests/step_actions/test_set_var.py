@@ -17,7 +17,7 @@ def test_set_var_action_prepare_no_mode():
         project_template=ProjectTemplate(
             name="Sample Template", source="", version=""),
         memory=memory,
-        logger=Terminal()
+        terminal=Terminal()
     )
     action.prepare()
     assert memory["result"] == "hello world"
@@ -35,7 +35,7 @@ def test_set_var_action_prepare_with_mode():
         project_template=ProjectTemplate(name="Sample Template",
                                          source="", version=""),
         memory=memory,
-        logger=Terminal()
+        terminal=Terminal()
     )
     action.prepare()
     assert memory["result"] == "HELLO WORLD"
