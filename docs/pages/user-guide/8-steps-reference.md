@@ -22,7 +22,7 @@ Prompt the user for a value and store it in a variable for use in later steps.
 
 ---
 
-## `ask_options` 
+## `ask_options`
 
 <span class="md-tag">Added in v1.5.0</span>
 
@@ -127,7 +127,7 @@ Append an import statement to a Python file.
 
 ---
 
-## `add_portion` 
+## `add_portion`
 
 <span class="md-tag">Added in v1.3.0</span>
 
@@ -143,6 +143,26 @@ Run another portion from within a portion step. Useful for composing reusable po
 |---|---|
 | `path*` | Path segments to the target directory or file |
 | `value*` | Name of the portion to apply (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
+
+---
+
+## `bash`
+
+<span class="md-tag">Added in v1.7.0</span>
+
+Run a shell command and store its output in a variable for use in later steps. If `auto_confirm` is not set, the user is prompted before the command runs.
+
+```yaml
+- type: bash
+  command: git rev-parse --short HEAD
+  variable: git_hash
+```
+
+| Field | Description |
+|---|---|
+| `command*` | Shell command to run (supports variable substitution) |
+| `variable*` | Variable name to store the command's stdout output |
 | `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---

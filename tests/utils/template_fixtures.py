@@ -158,11 +158,9 @@ def create_template_with_setup(mock_user_data_dir: PosixPath,
     author: Test Author
     type: test
     setup:
-      - name: basic_setup
-        steps:
-          - type: set_var
-            key: setup_key
-            value: setup_value
+      - type: set_var
+        key: setup_key
+        value: setup_value
     """
 
     config_file = version_path / ".pyportion.yml"
@@ -189,15 +187,13 @@ def create_template_with_setup_and_conditional(mock_user_data_dir: PosixPath,
     author: Test Author
     type: test
     setup:
-      - name: conditional_setup
-        steps:
-          - type: set_var
-            key: flag
-            value: "no"
-          - type: set_var
-            when: $flag == yes
-            key: skipped_key
-            value: skipped_value
+      - type: set_var
+        key: flag
+        value: "no"
+      - type: set_var
+        when: $flag == yes
+        key: skipped_key
+        value: skipped_value
     """
 
     config_file = version_path / ".pyportion.yml"

@@ -18,26 +18,24 @@ class NewCommand(CommandBase):
         self.terminal.pulse(Message.New.RUNNING_SETUP)
         memory: dict[str, str] = {}
 
-        for portion in setup:
-            actions = [create_action(step, project_template, memory,
-                                     self.terminal)
-                       for step in portion.steps]
+        actions = [create_action(step, project_template, memory, self.terminal)
+                   for step in setup]
 
-            for action in actions:
-                if evaluate_when(action.step.when, memory):
-                    action.prepare()
-                else:
-                    action.skipped = True
-                    if cli_state.verbose:
-                        self.terminal.info(Message.New.SKIP_SETUP_STEP,
-                                           step_type=action.step.type.value)
+        for action in actions:
+            if evaluate_when(action.step.when, memory):
+                action.prepare()
+            else:
+                action.skipped = True
+                if cli_state.verbose:
+                    self.terminal.info(Message.New.SKIP_SETUP_STEP,
+                                       step_type=action.step.type.value)
 
-            for action in actions:
-                if action.skipped:
-                    continue
-                self.terminal.pulse(Message.New.RUNNING_SETUP_STEP,
-                                    step_type=action.step.type.value)
-                action.apply()
+        for action in actions:
+            if action.skipped:
+                continue
+            self.terminal.pulse(Message.New.RUNNING_SETUP_STEP,
+                                step_type=action.step.type.value)
+            action.apply()
 
     def new(self, template_name: str, project_name: str) -> None:
         self.terminal.pulse(Message.New.PROJECT_CHECK)

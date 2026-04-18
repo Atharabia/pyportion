@@ -25,7 +25,7 @@ You will build the template structure, files, and steps manually.
 
 ## Template Configuration
 
-The `.pyportion.yml` file has two sections: **metadata** and **portions**.
+The `.pyportion.yml` file has three sections: **metadata**, **setup** (optional), and **portions**.
 
 ```yaml
 name: my-template
@@ -34,6 +34,11 @@ version: 1.0.0
 description: A short description of what this template does.
 author: Your Name
 type: cli
+
+setup:
+    - type: ask
+      question: What is your project name?
+      variable: project_name
 
 portions:
     - name: command
@@ -51,6 +56,24 @@ portions:
 | `author` | Author or team name |
 | `type` | Category label (e.g. `cli`, `api`, `library`) |
 | `source` | Git URL of the template repository |
+
+## Setup
+
+<span class="md-tag">Added in v1.7.0</span>
+
+The `setup` field defines a flat list of steps that run automatically when a user creates a new project with `portion new`. Use it to collect initial inputs or perform one-time configuration before the user starts using portions.
+
+```yaml
+setup:
+    - type: ask
+      question: Which database will you use?
+      variable: database
+    - type: bash
+      command: git init
+      variable: git_output
+```
+
+Setup steps use the same step types as portions — see the [Steps Reference](8-steps-reference.md).
 
 ## Portions
 

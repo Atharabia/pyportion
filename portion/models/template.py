@@ -103,5 +103,5 @@ class TemplateConfig(BaseModel):
     author: str
     type: str
 
-    setup: list[TemplatePortion] = []
+    setup: list[TemplatePortionStepsType] = []
     portions: list[TemplatePortion] = []
