@@ -1,6 +1,7 @@
 from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
+from portion.models import Message
 from portion.models import ProjectTemplate
 from portion.models import TemplateAddToListAction
 from portion.utils import Resolver
@@ -25,6 +26,13 @@ class AddToListAction(ActionBase[TemplateAddToListAction]):
         if isinstance(self.step.value, str):
             self.step.value = Resolver.resolve_variable(self.memory,
                                                         self.step.value)
+
+    def get_summary(self) -> str | None:
+        return Message.Step.VALUE_ADDED_TO_LIST.format(
+            value=self.step.value,
+            list_name=self.step.list_name,
+            path=self.step.path
+        )
 
     def apply(self) -> None:
         self.project_manager.add_to_list(self.step.path,

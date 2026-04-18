@@ -39,6 +39,7 @@ class Message:
         SKIP_STEP = "Skipping step: {step_type} (when is false)"
         CONFIRMATION = "Do you want to continue?"
         ABORT = "[bold red]Aborted[/]"
+        BUILT = "[bold #47ba47]{portion_name}[/] built successfully"
 
     @dataclass
     class Install:
@@ -103,6 +104,27 @@ class Message:
                             "has been deleted")
 
         NO_TEMPLATES = "There are no templates"
+
+    @dataclass
+    class Step:
+        IMPORT_ADDED = (
+            "Added import '[bold #47ba47]{import_statement}[/]'"
+            " to [bold #47ba47]{path}[/]"
+        )
+        CODE_BLOCK_ADDED = "Added code block to [bold #47ba47]{path}[/]"
+        VALUE_ADDED_TO_LIST = (
+            "Added '[bold #47ba47]{value}[/]' to list"
+            " [bold #47ba47]{list_name}[/]"
+            " in [bold #47ba47]{path}[/]"
+        )
+        FILE_COPIED = (
+            "Copied [bold #47ba47]{from_path}[/]"
+            " to [bold #47ba47]{to_path}[/]"
+        )
+        FILE_MODIFIED = (
+            "Replaced [bold #47ba47]{count}[/] value(s)"
+            " in [bold #47ba47]{path}[/]"
+        )
 
     @dataclass
     class Version:

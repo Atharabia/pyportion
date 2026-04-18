@@ -1,6 +1,7 @@
 from portion.base import ActionBase
 from portion.core import TemplateManager
 from portion.core import Terminal
+from portion.models import Message
 from portion.models import ProjectTemplate
 from portion.models import TemplateCopyAction
 from portion.utils import Resolver
@@ -18,6 +19,12 @@ class CopyAction(ActionBase[TemplateCopyAction]):
     def prepare(self) -> None:
         self.step.to_path = Resolver.resolve(self.memory,
                                              self.step.to_path)
+
+    def get_summary(self) -> str | None:
+        return Message.Step.FILE_COPIED.format(
+            from_path=self.step.from_path,
+            to_path=self.step.to_path
+        )
 
     def apply(self) -> None:
         self.template_manager.copy_portion(self.project_template.name,

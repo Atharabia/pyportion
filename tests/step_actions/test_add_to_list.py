@@ -32,6 +32,16 @@ def test_add_to_list_action_prepare():
     assert add_to_list_action.step.value == "myapp"
 
 
+def test_add_to_list_action_get_summary():
+    add_to_list_action.step.path = ["myproject", "config.py"]
+    add_to_list_action.step.list_name = "INSTALLED_APPS"
+    add_to_list_action.step.value = "myapp"
+    expected = ("Added '[bold #47ba47]myapp[/]' to list "
+                "[bold #47ba47]INSTALLED_APPS[/] in "
+                "[bold #47ba47]['myproject', 'config.py'][/]")
+    assert add_to_list_action.get_summary() == expected
+
+
 def test_add_to_list_action_apply(tmp_path: Path):
     py_file = tmp_path / "config.py"
     py_file.write_text("INSTALLED_APPS = []\n")

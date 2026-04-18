@@ -1,6 +1,7 @@
 from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
+from portion.models import Message
 from portion.models import ProjectTemplate
 from portion.models import TemplateAddImportAction
 from portion.utils import Resolver
@@ -22,6 +23,12 @@ class AddImportAction(ActionBase[TemplateAddImportAction]):
         self.step.import_statement = Resolver.resolve_variable(
             self.memory,
             self.step.import_statement)
+
+    def get_summary(self) -> str | None:
+        return Message.Step.IMPORT_ADDED.format(
+            import_statement=self.step.import_statement,
+            path=self.step.path
+        )
 
     def apply(self) -> None:
         self.project_manager.add_import(self.step.path,

@@ -1,6 +1,7 @@
 from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
+from portion.models import Message
 from portion.models import ProjectTemplate
 from portion.models import TemplateAddPortionAction
 from portion.utils import Resolver
@@ -18,6 +19,9 @@ class AddPortion(ActionBase[TemplateAddPortionAction]):
     def prepare(self) -> None:
         self.step.path = Resolver.resolve(self.memory,
                                           self.step.path)
+
+    def get_summary(self) -> str | None:
+        return Message.Step.CODE_BLOCK_ADDED.format(path=self.step.path)
 
     def apply(self) -> None:
         self.project_manager.add_portion(self.step.path,

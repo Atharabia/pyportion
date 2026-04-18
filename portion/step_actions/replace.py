@@ -1,6 +1,7 @@
 from portion.base import ActionBase
 from portion.core import ProjectManager
 from portion.core import Terminal
+from portion.models import Message
 from portion.models import ProjectTemplate
 from portion.models import TemplateReplaceAction
 from portion.utils import Resolver
@@ -25,6 +26,12 @@ class ReplaceAction(ActionBase[TemplateReplaceAction]):
 
             value = Transformer.transform(memory_value, replace.mode)
             replace.value = value
+
+    def get_summary(self) -> str | None:
+        return Message.Step.FILE_MODIFIED.format(
+            count=len(self.step.replacements),
+            path=self.step.path
+        )
 
     def apply(self) -> None:
         self.project_manager.replace_in_file(self.step.path,

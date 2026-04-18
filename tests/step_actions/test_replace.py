@@ -32,6 +32,13 @@ def test_replace_action_prepare():
     assert replace_action.step.replacements[0].value == "HELLO WORLD"
 
 
+def test_replace_action_get_summary():
+    replace_action.step.path = ["source", "file.txt"]
+    expected = ("Replaced [bold #47ba47]1[/] value(s) in "
+                "[bold #47ba47]['source', 'file.txt'][/]")
+    assert replace_action.get_summary() == expected
+
+
 def test_replace_action_apply(tmp_path: Path):
     source_dir = tmp_path / "source"
     source_dir.mkdir()

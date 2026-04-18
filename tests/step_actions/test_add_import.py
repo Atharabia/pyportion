@@ -29,6 +29,14 @@ def test_add_import_action_prepare():
     assert add_import_action.step.import_statement == "import os"
 
 
+def test_add_import_action_get_summary():
+    add_import_action.step.import_statement = "import os"
+    add_import_action.step.path = ["myproject", "main.py"]
+    expected = ("Added import '[bold #47ba47]import os[/]' to "
+                "[bold #47ba47]['myproject', 'main.py'][/]")
+    assert add_import_action.get_summary() == expected
+
+
 def test_add_import_action_apply(tmp_path: Path):
     py_file = tmp_path / "main.py"
     py_file.write_text("x = 1\n")

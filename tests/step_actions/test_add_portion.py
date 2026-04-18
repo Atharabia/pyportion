@@ -26,6 +26,12 @@ def test_add_portion_prepare():
     assert add_portion_action.step.path == ["myproject", "main.py"]
 
 
+def test_add_portion_get_summary():
+    add_portion_action.step.path = ["myproject", "main.py"]
+    expected = "Added code block to [bold #47ba47]['myproject', 'main.py'][/]"
+    assert add_portion_action.get_summary() == expected
+
+
 def test_add_portion_apply(tmp_path: Path):
     py_file = tmp_path / "main.py"
     py_file.write_text("x = 1\n")

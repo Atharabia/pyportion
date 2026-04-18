@@ -61,6 +61,11 @@ class BuildCommand(CommandBase):
                     self.terminal.info(Message.Build.SKIP_STEP,
                                        step_type=action.step.type.value)
 
+        for action in actions:
+            summary = action.get_summary()
+            if summary:
+                self.terminal.info(summary)
+
         if not cli_state.auto_confirm:
             if not self.terminal.prompt(Message.Build.CONFIRMATION):
                 self.terminal.info(Message.Build.ABORT)
@@ -73,3 +78,5 @@ class BuildCommand(CommandBase):
             self.terminal.pulse(Message.Build.RUNNING_STEP,
                                 step_type=action.step.type.value)
             action.apply()
+
+        self.terminal.info(Message.Build.BUILT, portion_name=portion_name)
