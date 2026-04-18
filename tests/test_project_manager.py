@@ -1,6 +1,7 @@
 import os
 from pathlib import PosixPath
 
+import pytest
 from rich.panel import Panel
 
 from portion.core.project_manager import ProjectManager
@@ -210,6 +211,26 @@ def test_add_portion(tmp_path: PosixPath) -> None:
     content = py_file.read_text()
     assert "x = 1" in content
     assert "y = 2" in content
+
+
+def test_add_portion_to_class(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "module.py"
+    py_file.write_text("class MyClass:\n    x = 1\n")
+    pm.add_portion([str(tmp_path), "module.py"],
+                   "def my_method(self):\n    pass",
+                   class_name="MyClass")
+    content = py_file.read_text()
+    assert "class MyClass" in content
+    assert "my_method" in content
+
+
+def test_add_portion_to_class_not_found(tmp_path: PosixPath) -> None:
+    py_file = tmp_path / "module.py"
+    py_file.write_text("class MyClass:\n    x = 1\n")
+    with pytest.raises(ValueError, match="MissingClass"):
+        pm.add_portion([str(tmp_path), "module.py"],
+                       "def my_method(self):\n    pass",
+                       class_name="MissingClass")
 
 
 def test_get_project_info() -> None:

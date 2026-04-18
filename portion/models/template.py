@@ -30,6 +30,7 @@ class TemplateAddImportAction(TemplateMixin):
 class TemplateAddPortionAction(TemplateMixin):
     path: list[str]
     value: str
+    class_name: str | None = None
 
 
 class TemplateAddToListAction(TemplateMixin):

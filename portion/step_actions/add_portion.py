@@ -25,4 +25,5 @@ class AddPortion(ActionBase[TemplateAddPortionAction]):
 
     def apply(self) -> None:
         self.project_manager.add_portion(self.step.path,
-                                         self.step.value)
+                                         self.step.value,
+                                         self.step.class_name)

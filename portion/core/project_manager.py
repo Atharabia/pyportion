@@ -149,13 +149,25 @@ class ProjectManager:
         with open(file_path, "w") as f:
             f.write(red.dumps())
 
-    def add_portion(self, path: list[str], value: str) -> None:
+    def add_portion(self,
+                    path: list[str],
+                    value: str,
+                    class_name: str | None = None) -> None:
         file_path = os.path.join(*path)
 
         with open(file_path, "r") as f:
             code = f.read()
 
-        code += f"\n{value}"
+        if class_name:
+            red = RedBaron(code)
+            class_node = red.find("class", name=class_name)
+            if class_node is None:
+                raise ValueError(
+                    f"Class '{class_name}' not found in {file_path}")
+            class_node.value.append(value)
+            code = red.dumps()
+        else:
+            code += f"\n{value}"
 
         with open(file_path, "w") as f:
             f.write(code)
