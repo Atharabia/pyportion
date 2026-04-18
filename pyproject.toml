@@ -1,6 +1,6 @@
 [project]
 name = "pyportion"
-version = "1.6.0"
+version = "1.7.0"
 description = "A Python CLI tool that helps developers kickstart new projects and manage existing ones"
 authors = [
     { name = "Murtada Altarouti", email = "murtada.altarouti@gmail.com" },
