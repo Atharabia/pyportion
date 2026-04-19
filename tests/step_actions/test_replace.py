@@ -32,6 +32,27 @@ def test_replace_action_prepare():
     assert replace_action.step.replacements[0].value == "HELLO WORLD"
 
 
+def test_replace_action_prepare_no_mode():
+    action = ReplaceAction(
+        step=TemplateReplaceAction(
+            type=ActionType.REPLACE,
+            path=["source", "file.txt"],
+            replacements=[TemplateReplacement(
+                keyword="PLACEHOLDER",
+                value="$new_value",
+                mode=None,
+            )]
+        ),
+        project_template=ProjectTemplate(name="Sample Template",
+                                         source="",
+                                         version=""),
+        memory={"new_value": "hello world"},
+        terminal=Terminal()
+    )
+    action.prepare()
+    assert action.step.replacements[0].value == "hello world"
+
+
 def test_replace_action_get_summary():
     replace_action.step.path = ["source", "file.txt"]
     expected = ("Replaced [bold #47ba47]1[/] value(s) in "
