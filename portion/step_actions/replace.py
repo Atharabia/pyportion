@@ -24,7 +24,11 @@ class ReplaceAction(ActionBase[TemplateReplaceAction]):
             memory_value = Resolver.resolve_variable(self.memory,
                                                      replace.value)
 
-            value = Transformer.transform(memory_value, replace.mode)
+            if replace.mode:
+                value = Transformer.transform(memory_value, replace.mode)
+            else:
+                value = memory_value
+
             replace.value = value
 
     def get_summary(self) -> str | None:

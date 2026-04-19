@@ -64,7 +64,7 @@ class TemplateCopyAction(TemplateMixin):
 class TemplateReplacement(BaseModel):
     keyword: str
     value: str
-    mode: str
+    mode: str | None
 
 
 class TemplateReplaceAction(TemplateMixin):
