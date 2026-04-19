@@ -40,7 +40,6 @@ def test_replace_action_prepare_no_mode():
             replacements=[TemplateReplacement(
                 keyword="PLACEHOLDER",
                 value="$new_value",
-                mode=None,
             )]
         ),
         project_template=ProjectTemplate(name="Sample Template",
