@@ -76,6 +76,8 @@ class TemplateSetVarAction(TemplateMixin):
     key: str
     value: str
     mode: str | None = None
+    prefix: str | None = None
+    suffix: str | None = None
 
 
 TemplatePortionStepsType = Union[

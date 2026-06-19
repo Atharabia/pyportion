@@ -49,13 +49,15 @@ Prompt the user to pick one option from a list and store the chosen value in a v
 
 ## `set_var`
 
-Derive a new variable from a fixed value or an existing variable, optionally applying a case transformation.
+Derive a new variable from a fixed value or an existing variable, optionally applying a case transformation and prepending or appending a string.
 
 ```yaml
 - type: set_var
   key: command_class
   value: $command_name
   mode: titlecase
+  prefix: My
+  suffix: Command
 ```
 
 | Field | Description |
@@ -63,6 +65,8 @@ Derive a new variable from a fixed value or an existing variable, optionally app
 | `key*` | Name of the new variable |
 | `value*` | Source value (can reference an existing variable) |
 | `mode` | Transformation to apply: `pascalcase`, `camelcase`, `titlecase`, `uppercase`, `lowercase` |
+| `prefix` | String to prepend to the value after transformation (supports variable substitution). `Added in v1.8.2` |
+| `suffix` | String to append to the value after transformation (supports variable substitution). `Added in v1.8.2` |
 | `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---

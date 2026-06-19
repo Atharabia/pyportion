@@ -21,6 +21,14 @@ class SetVarAction(ActionBase[TemplateSetVarAction]):
         if self.step.mode:
             value = Transformer.transform(value, self.step.mode)
 
+        if self.step.prefix:
+            prefix = Resolver.resolve_variable(self.memory, self.step.prefix)
+            value = prefix + value
+
+        if self.step.suffix:
+            suffix = Resolver.resolve_variable(self.memory, self.step.suffix)
+            value = value + suffix
+
         self.memory[self.step.key] = value
 
     def apply(self) -> None:
