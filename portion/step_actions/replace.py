@@ -34,7 +34,7 @@ class ReplaceAction(ActionBase[TemplateReplaceAction]):
     def get_summary(self) -> str | None:
         return Message.Step.FILE_MODIFIED.format(
             count=len(self.step.replacements),
-            path=self.step.path
+            path="/".join(self.step.path)
         )
 
     def apply(self) -> None:

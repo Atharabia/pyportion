@@ -28,8 +28,8 @@ def test_copy_action_prepare():
 def test_copy_action_get_summary():
     copy_action.step.from_path = ["source", "file.txt"]
     copy_action.step.to_path = ["dest_folder", "file.txt"]
-    expected = ("Copied [bold #47ba47]['source', 'file.txt'][/] to "
-                "[bold #47ba47]['dest_folder', 'file.txt'][/]")
+    expected = ("Copied [bold #47ba47]source/file.txt[/] to "
+                "[bold #47ba47]dest_folder/file.txt[/]")
     assert copy_action.get_summary() == expected
 
 

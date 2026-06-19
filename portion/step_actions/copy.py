@@ -22,8 +22,8 @@ class CopyAction(ActionBase[TemplateCopyAction]):
 
     def get_summary(self) -> str | None:
         return Message.Step.FILE_COPIED.format(
-            from_path=self.step.from_path,
-            to_path=self.step.to_path
+            from_path="/".join(self.step.from_path),
+            to_path="/".join(self.step.to_path)
         )
 
     def apply(self) -> None:

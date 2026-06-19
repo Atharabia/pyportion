@@ -21,7 +21,7 @@ class AddPortion(ActionBase[TemplateAddPortionAction]):
                                           self.step.path)
 
     def get_summary(self) -> str | None:
-        return Message.Step.CODE_BLOCK_ADDED.format(path=self.step.path)
+        return Message.Step.CODE_BLOCK_ADDED.format(path="/".join(self.step.path))
 
     def apply(self) -> None:
         self.project_manager.add_portion(self.step.path,

@@ -27,7 +27,7 @@ class AddImportAction(ActionBase[TemplateAddImportAction]):
     def get_summary(self) -> str | None:
         return Message.Step.IMPORT_ADDED.format(
             import_statement=self.step.import_statement,
-            path=self.step.path
+            path="/".join(self.step.path)
         )
 
     def apply(self) -> None:

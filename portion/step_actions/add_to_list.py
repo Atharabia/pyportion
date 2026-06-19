@@ -31,7 +31,7 @@ class AddToListAction(ActionBase[TemplateAddToListAction]):
         return Message.Step.VALUE_ADDED_TO_LIST.format(
             value=self.step.value,
             list_name=self.step.list_name,
-            path=self.step.path
+            path="/".join(self.step.path)
         )
 
     def apply(self) -> None:

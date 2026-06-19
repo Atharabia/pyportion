@@ -38,7 +38,7 @@ def test_add_to_list_action_get_summary():
     add_to_list_action.step.value = "myapp"
     expected = ("Added '[bold #47ba47]myapp[/]' to list "
                 "[bold #47ba47]INSTALLED_APPS[/] in "
-                "[bold #47ba47]['myproject', 'config.py'][/]")
+                "[bold #47ba47]myproject/config.py[/]")
     assert add_to_list_action.get_summary() == expected
 
 

@@ -28,7 +28,7 @@ def test_add_portion_prepare():
 
 def test_add_portion_get_summary():
     add_portion_action.step.path = ["myproject", "main.py"]
-    expected = "Added code block to [bold #47ba47]['myproject', 'main.py'][/]"
+    expected = "Added code block to [bold #47ba47]myproject/main.py[/]"
     assert add_portion_action.get_summary() == expected
 
 

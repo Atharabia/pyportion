@@ -55,7 +55,7 @@ def test_replace_action_prepare_no_mode():
 def test_replace_action_get_summary():
     replace_action.step.path = ["source", "file.txt"]
     expected = ("Replaced [bold #47ba47]1[/] value(s) in "
-                "[bold #47ba47]['source', 'file.txt'][/]")
+                "[bold #47ba47]source/file.txt[/]")
     assert replace_action.get_summary() == expected
 
 
