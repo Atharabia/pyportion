@@ -10,6 +10,8 @@ from .ask import AskAction
 from .ask import AskOptionsAction
 from .bash_command import BashAction
 from .copy import CopyAction
+from .create_file import CreateFileAction
+from .create_folder import CreateFolderAction
 from .replace import ReplaceAction
 from .set_var import SetVarAction
 
@@ -21,6 +23,8 @@ all_actions = {
     "ask_options": AskOptionsAction,
     "bash": BashAction,
     "copy": CopyAction,
+    "create_file": CreateFileAction,
+    "create_folder": CreateFolderAction,
     "replace": ReplaceAction,
     "set_var": SetVarAction,
 }

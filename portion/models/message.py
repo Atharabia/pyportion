@@ -121,10 +121,12 @@ class Message:
             "Copied [bold #47ba47]{from_path}[/]"
             " to [bold #47ba47]{to_path}[/]"
         )
+        FILE_CREATED = "Created file [bold #47ba47]{path}[/]"
         FILE_MODIFIED = (
             "Replaced [bold #47ba47]{count}[/] value(s)"
             " in [bold #47ba47]{path}[/]"
         )
+        FOLDER_CREATED = "Created folder [bold #47ba47]{path}[/]"
 
     @dataclass
     class Version:

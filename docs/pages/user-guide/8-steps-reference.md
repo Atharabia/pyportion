@@ -89,6 +89,40 @@ Copy a file from `.portions/` into the project directory.
 
 ---
 
+## `create_folder`
+
+Create a folder (and any missing parent directories) in the project.
+
+```yaml
+- type: create_folder
+  path: ["src", "$module_name", "utils"]
+```
+
+| Field | Description |
+|---|---|
+| `path*` | Path segments for the folder to create (supports variable substitution) |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
+
+---
+
+## `create_file`
+
+Create a new file in the project, creating any missing parent directories. Optionally set the initial file content.
+
+```yaml
+- type: create_file
+  path: ["src", "$module_name", "__init__.py"]
+  content: "# $module_name"
+```
+
+| Field | Description |
+|---|---|
+| `path*` | Path segments for the file to create (supports variable substitution) |
+| `content` | Initial content to write to the file (supports variable substitution). Defaults to empty string. |
+| `when` | Optional condition; the step runs only if it evaluates to true. |
+
+---
+
 ## `replace`
 
 Replace keyword placeholders inside a file with variable values.

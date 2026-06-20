@@ -13,6 +13,8 @@ class ActionType(Enum):
     ASK_OPTIONS = "ask_options"
     BASH = "bash"
     COPY = "copy"
+    CREATE_FILE = "create_file"
+    CREATE_FOLDER = "create_folder"
     REPLACE = "replace"
     SET_VAR = "set_var"
 
@@ -61,6 +63,15 @@ class TemplateCopyAction(TemplateMixin):
     to_path: list[str]
 
 
+class TemplateCreateFileAction(TemplateMixin):
+    path: list[str]
+    content: str = ""
+
+
+class TemplateCreateFolderAction(TemplateMixin):
+    path: list[str]
+
+
 class TemplateReplacement(BaseModel):
     keyword: str
     value: str
@@ -88,6 +99,8 @@ TemplatePortionStepsType = Union[
     TemplateAskOptionsAction,
     TemplateBashCommand,
     TemplateCopyAction,
+    TemplateCreateFileAction,
+    TemplateCreateFolderAction,
     TemplateReplaceAction,
     TemplateSetVarAction,
 ]

@@ -12,6 +12,8 @@ from .template import TemplateAskOptionsAction
 from .template import TemplateBashCommand
 from .template import TemplateConfig
 from .template import TemplateCopyAction
+from .template import TemplateCreateFileAction
+from .template import TemplateCreateFolderAction
 from .template import TemplatePortion
 from .template import TemplatePortionStepsType
 from .template import TemplateReplaceAction
@@ -33,6 +35,8 @@ __all__ = [
     "TemplateBashCommand",
     "TemplateConfig",
     "TemplateCopyAction",
+    "TemplateCreateFileAction",
+    "TemplateCreateFolderAction",
     "TemplatePortion",
     "TemplatePortionStepsType",
     "TemplateReplacement",
