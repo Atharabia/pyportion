@@ -22,6 +22,8 @@ The `replace` and `set_var` steps accept an optional `mode` field that transform
 |---|---|---|
 | `pascalcase` | `my command` | `MyCommand` |
 | `camelcase` | `my command` | `myCommand` |
+| `snakecase` | `my command` | `my_command` |
+| `kebabcase` | `my command` | `my-command` |
 | `titlecase` | `my command` | `My Command` |
 | `uppercase` | `my command` | `MY COMMAND` |
 | `lowercase` | `My Command` | `my command` |
