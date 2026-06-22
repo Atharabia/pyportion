@@ -181,6 +181,7 @@ Run another portion from within a portion step. Useful for composing reusable po
 |---|---|
 | `path*` | Path segments to the target directory or file |
 | `value*` | Name of the portion to apply (supports variable substitution) |
+| `class_name` | If provided, the value is injected into the body of the named class instead of appended to the end of the file. Raises an error if the class is not found. |
 | `when` | Optional condition; the step runs only if it evaluates to true. |
 
 ---
