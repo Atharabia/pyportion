@@ -19,6 +19,11 @@ class AddPortion(ActionBase[TemplateAddPortionAction]):
     def prepare(self) -> None:
         self.step.path = Resolver.resolve(self.memory,
                                           self.step.path)
+        self.step.value = Resolver.resolve_variable(self.memory,
+                                                    self.step.value)
+        if self.step.class_name:
+            self.step.class_name = Resolver.resolve_variable(self.memory,
+                                                              self.step.class_name)
 
     def get_summary(self) -> str | None:
         return Message.Step.CODE_BLOCK_ADDED.format(path="/".join(self.step.path))
