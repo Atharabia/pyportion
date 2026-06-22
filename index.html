@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPortion - CLI Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo.png">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-brand">
+            <img src="assets/images/logo.png" alt="PyPortion Logo" width="40" height="40">
+            <span>PyPortion</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#demo">How</a>
+            <a href="#why">Why</a>
+            <a href="#features">What</a>
+            <a href="pages">Docs</a>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-statement">Build Projects <span id="dynamic-word" class="dynamic-word">Faster_</span></h1>
+            <p class="hero-subheadline">
+                Kickstart new Python projects instantly and manage existing ones effortlessly
+            </p>
+            <div class="cta-buttons">
+                <a href="pages">
+                    <button class="btn-primary">Get Started</button>
+                </a>
+                <a href="https://github.com/atharabia/pyportion" target="_blank">
+                    <button class="btn-secondary">Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+        <h2><span class="highlight">How</span> It Works</h2>
+        <div class="demo-container">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-button close"></div>
+                        <div class="terminal-button minimize"></div>
+                        <div class="terminal-button maximize"></div>
+                    </div>
+                    <div class="terminal-title">Terminal</div>
+                    <button class="replay-button" id="replayBtn">▶ Replay</button>
+                </div>
+                <div class="terminal-body" id="terminal">
+                </div>
+            </div>
+            <div class="explorer-panel">
+                <div class="explorer-panel-header">File Explorer</div>
+                <div class="explorer-panel-body" id="explorerPanel">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="why" class="comparison-section">
+        <h2><span class="highlight">Why</span> PyPortion?</h2>
+        <div class="comparison-grid">
+            <div class="comparison-card comparison-manual">
+                <h3>❌ Manual Setup</h3>
+                <ul>
+                    <li>Hours wasted on repetitive setup</li>
+                    <li>Fragile and error-prone structure</li>
+                    <li>Different layout for every project</li>
+                </ul>
+            </div>
+            <div class="comparison-card comparison-pyportion">
+                <h3>✅ With PyPortion</h3>
+                <ul>
+                    <li>Start a new project in seconds</li>
+                    <li>Production-ready proven structure</li>
+                    <li>Consistent across all projects</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2><span class="highlight">What</span> You Get</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3>Quick Start</h3>
+                <p>
+                    Scaffold new projects in seconds. Get up and running instantly with zero setup time.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🛠️</span>
+                <h3>Easy Management</h3>
+                <p>
+                    Maintain and organize your projects effortlessly with built-in templates.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📦</span>
+                <h3>Clean & Consistent</h3>
+                <p>
+                    Scalable architecture that stays clean, maintainable, and up to standard as you grow.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to get started?</h2>
+        <p>Join developers who are building projects faster and cleaner with PyPortion</p>
+        <a href="pages">
+            <button class="btn-primary">Start Creating Projects</button>
+        </a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-brand">PyPortion</div>
+                <p class="footer-tagline">Cleaner and Faster Development</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="pages">Get Started</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Community</h4>
+                    <a href="https://github.com/atharabia">GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PyPortion. Open source under MIT License.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/hero-text-animation.js"></script>
+    <script src="assets/js/demo-terminal.js"></script>
+</body>
+
+</html>
