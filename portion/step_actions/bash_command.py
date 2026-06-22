@@ -4,14 +4,14 @@ from portion.base import ActionBase
 from portion.core import Terminal
 from portion.models import Message
 from portion.models import ProjectTemplate
-from portion.models import TemplateBashCommand
+from portion.models import TemplateBashAction
 from portion.models import cli_state
 from portion.utils import Resolver
 
 
-class BashAction(ActionBase[TemplateBashCommand]):
+class BashAction(ActionBase[TemplateBashAction]):
     def __init__(self,
-                 step: TemplateBashCommand,
+                 step: TemplateBashAction,
                  project_template: ProjectTemplate,
                  memory: dict[str, str],
                  terminal: Terminal) -> None:

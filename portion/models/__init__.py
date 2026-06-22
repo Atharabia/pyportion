@@ -9,7 +9,7 @@ from .template import TemplateAddPortionAction
 from .template import TemplateAddToListAction
 from .template import TemplateAskAction
 from .template import TemplateAskOptionsAction
-from .template import TemplateBashCommand
+from .template import TemplateBashAction
 from .template import TemplateConfig
 from .template import TemplateCopyAction
 from .template import TemplateCreateFileAction
@@ -32,7 +32,7 @@ __all__ = [
     "TemplateAddToListAction",
     "TemplateAskAction",
     "TemplateAskOptionsAction",
-    "TemplateBashCommand",
+    "TemplateBashAction",
     "TemplateConfig",
     "TemplateCopyAction",
     "TemplateCreateFileAction",

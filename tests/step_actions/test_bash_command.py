@@ -6,7 +6,7 @@ import pytest
 from portion.core import Terminal
 from portion.models import ActionType
 from portion.models import ProjectTemplate
-from portion.models import TemplateBashCommand
+from portion.models import TemplateBashAction
 from portion.models import cli_state
 from portion.step_actions import BashAction
 
@@ -14,7 +14,7 @@ from portion.step_actions import BashAction
 def make_bash_action(command: str = "echo hello",
                      variable: str = "output") -> BashAction:
     return BashAction(
-        step=TemplateBashCommand(
+        step=TemplateBashAction(
             type=ActionType.BASH,
             command=command,
             variable=variable,

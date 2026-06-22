@@ -53,7 +53,7 @@ class TemplateAskOptionsAction(TemplateMixin):
     options: list[str] = Field(min_length=1)
 
 
-class TemplateBashCommand(TemplateMixin):
+class TemplateBashAction(TemplateMixin):
     command: str
     variable: str
 
@@ -97,7 +97,7 @@ TemplatePortionStepsType = Union[
     TemplateAddToListAction,
     TemplateAskAction,
     TemplateAskOptionsAction,
-    TemplateBashCommand,
+    TemplateBashAction,
     TemplateCopyAction,
     TemplateCreateFileAction,
     TemplateCreateFolderAction,
